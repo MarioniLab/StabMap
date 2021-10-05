@@ -22,7 +22,7 @@ assay_list = list(
   D_i = full_expr[151:300, 101:150]
 )
 
-# labels list
+# assign labels to one group of cells
 labels_list = list(
   D_R = rep(letters[1:5], each = 10)
 )
@@ -39,7 +39,7 @@ plotFeatureOverlaps(assay_list)
 plot(featureNetwork(assay_list))
 out = stabMap(assay_list,
               labels_list = labels_list,
-              reference_list = c("D_R"),
+              reference_list = reference_list,
               ncomponentsReference = 20, ncomponentsSubset = 20)
 
 # inspect the output object, a mixture of PCs and (supervised) LDs

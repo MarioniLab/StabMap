@@ -8,8 +8,7 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
+#' @keywords internal
 #' @export
 runOps = function(obj, ops, leftToRight = TRUE) {
   if (leftToRight) {

@@ -19,6 +19,4 @@ matrix
 \description{
 runOps
 }
-\examples{
-
-}
+\keyword{internal}
