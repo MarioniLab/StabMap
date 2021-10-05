@@ -14,6 +14,5 @@
 #' @import igraph
 #' @import BiocNeighbors
 #' @import UpSetR
-#' @import scater
 #' @import Matrix
 NULL

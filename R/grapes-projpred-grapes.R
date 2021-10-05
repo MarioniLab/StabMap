@@ -1,9 +1,13 @@
-#' "%projpred%"
+#' Project and/or predict data using feature weights or a LDA model object
 #'
-#' "%projpred%"
+#' This function takes a data matrix a and, depending on the class of b,
+#' projects the data using feature weights, or predicts new values using
+#' linear discriminant analysis (LDA) model object, or both.
 #'
-#' @param a a
-#' @param b b
+#' @usage a \%projpred\% b
+#' @param a a matrix with colnames specified
+#' @param b a matrix with rownames specified, or a lda model object, or a
+#' list containing a matrix and/or a lda model object.
 #'
 #' @return matrix
 #'
@@ -20,6 +24,7 @@
   # object then just perform the prediction
 
   if (class(b)[1] == "lda") {
+    require(MASS)
     features = rownames(b$scaling)
     am = MASS:::predict.lda(b, newdata = a[,features])$x
     return(am)
@@ -31,6 +36,7 @@
 
   ab = a %*% b[[1]]
   if (class(b[[2]]) == "lda") {
+    require(MASS)
     am = MASS:::predict.lda(b[[2]], newdata = a)$x
   }
   if (class(b[[2]]) == "svm") {

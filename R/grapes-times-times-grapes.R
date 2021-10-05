@@ -1,9 +1,13 @@
-#' "%**%"
+#' Sorted matrix multiplication
 #'
-#' "%**%"
+#' This function multiplies two matrices but first reorders the rows of the
+#' second matrix to match the columns of the first matrix
 #'
-#' @param X matrix
-#' @param Y matrix
+#' @usage X \%**\% Y
+#' @param X a matrix with colnames specified.
+#' @param Y a matrix with rownames specified. Alternatively, a list assumed to
+#' contain two objects, a matrix with rownames specified, and a vector of
+#' scaling values for subtraction.
 #'
 #' @return matrix
 #'
