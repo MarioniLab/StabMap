@@ -17,6 +17,4 @@ matrix
 \description{
 vectorSubset
 }
-\examples{
-
-}
+\keyword{internal}

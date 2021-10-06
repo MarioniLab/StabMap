@@ -12,9 +12,7 @@
 #' @return a matrix with rows equal to \code{length(models)} and columns
 #' corresponding to cells/observations
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 "%pred%" <- function(data, models) {
   # data is a features x cells matrix
   # models is a list of univariate models with the features

@@ -9,8 +9,7 @@
 #' @return matrix
 #'
 #' @keywords internal
-#' @export
-runOps = function(obj, ops, leftToRight = TRUE) {
+.runOps = function(obj, ops, leftToRight = TRUE) {
   if (leftToRight) {
     out = obj[[1]]
     for (i in 1:length(ops)) {

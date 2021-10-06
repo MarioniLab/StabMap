@@ -168,9 +168,6 @@ stabMap = function(assay_list,
         # lda.scaling = lda.fit$scaling
         # colnames(lda.scaling) <- paste0(reference_dataset, "_", colnames(lda.scaling))
 
-        if (FALSE) {
-          P_0 = lda.fit
-        }
         # reference_scores = t(assay_list[[reference_dataset]][features,])
         reference_scores = t(assay_list[[reference_dataset]][features,]) %projpred% lda.fit
 
@@ -289,13 +286,7 @@ stabMap = function(assay_list,
             # obj <- c(coef, obj)
             obj[[length(obj) + 1]] <- coef
 
-            # if (TRUE) {
-            # if (length(path_current) == 2) {
-            # obj <- c(loadings_current, obj)
-            # if (TRUE) {
             obj[[length(obj) + 1]] <- loadings_current
-            # }
-            # ops <- c("%projpred%",ops)
             ops <- c("%*1%", ops)
             ops <- c("%**%", ops)
             # }
@@ -338,7 +329,6 @@ stabMap = function(assay_list,
             # obj <- c(coef, obj)
             obj[[length(obj) + 1]] <- coef
 
-            # ops <- c("%*1%",ops)
             ops <- c("%*1%", ops)
 
 
@@ -367,24 +357,19 @@ stabMap = function(assay_list,
         }
 
         # now that the path is just length 1, perform the projection
-        if (FALSE) {
-          embedding_list[[path_current]] <- t(assay_list[[path_current]]) %**% P
-        } else {
-          # experimental:
-          # obj <- c(t(assay_list[[path_current]]), obj)
           obj[[length(obj) + 1]] <- t(assay_list[[path_current]])
           if (length(obj) - length(ops) != 1) {
             ops <- c("%**%",ops)
           }
-          embedding_list[[path_current]] <- runOps(rev(obj), ops, leftToRight = FALSE)
-        }
+          embedding_list[[path_current]] <- .runOps(rev(obj), ops, leftToRight = FALSE)
+
 
         ## experimental: also project the prior data too
-        # embedding_list[[path_previous]] <- t(assay_list[[path_previous]]) %**% P
+
         if (projectAll) {
           obj[[length(obj)]] <- t(assay_list[[path_previous]])
-          # ops <- c("%**%",ops)
-          embedding_list[[path_previous]] <- runOps(rev(obj), ops, leftToRight = FALSE)
+
+          embedding_list[[path_previous]] <- .runOps(rev(obj), ops, leftToRight = FALSE)
 
           for (path_previous_previous in path) {
 
@@ -406,7 +391,7 @@ stabMap = function(assay_list,
             obj_previous_previous[[length(obj_previous_previous) + 1]] <- t(assay_list[[path_previous_previous]])
             ops_previous_previous <- c("%**%",ops_previous_previous)
 
-            embedding_list[[path_previous_previous]] <- runOps(rev(obj_previous_previous), ops_previous_previous, leftToRight = FALSE)
+            embedding_list[[path_previous_previous]] <- .runOps(rev(obj_previous_previous), ops_previous_previous, leftToRight = FALSE)
           }
 
         }

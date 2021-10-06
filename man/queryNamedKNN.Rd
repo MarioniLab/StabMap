@@ -19,6 +19,4 @@ matrix
 \description{
 queryNamedKNN
 }
-\examples{
-
-}
+\keyword{internal}

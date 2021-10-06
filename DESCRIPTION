@@ -2,11 +2,29 @@ Package: StabMap
 Type: Package
 Title: Mosaic single cell data integration using non-overlapping features
 Version: 0.1.0
-Author: Shila Ghazanfar
-Maintainer: Shila Ghazanfar <shazanfar@gmail.com>
-Description: More about what it does (maybe more than one line)
+Authors@R: 
+    c(person("Shila", "Ghazanfar", role=c("aut", "cre", "ctb"), email = "shazanfar@gmail.com"))
+Description: Mosaic single cell data integration using non-overlapping features
+    Use four spaces when indenting paragraphs within the Description.
+    Use four spaces when indenting paragraphs within the Description.
+    Use four spaces when indenting paragraphs within the Description.
+    Use four spaces when indenting paragraphs within the Description.
+    Use four spaces when indenting paragraphs within the Description.
+    Use four spaces when indenting paragraphs within the Description.
     Use four spaces when indenting paragraphs within the Description.
 License: GPL-2
 Encoding: UTF-8
+URL: https://marionilab.github.io/StabMap
+BugReports: https://github.com/MarioniLab/StabMap/issues
+biocViews: SingleCell, DimensionReduction, Software
+Depends: R (>= 4.0.0),
+    igraph
+Imports: BiocNeighbors,
+    MASS,
+    Matrix,
+    abind,
+    scran,
+    UpSetR
+Suggests: 
 LazyData: true
 RoxygenNote: 7.1.1

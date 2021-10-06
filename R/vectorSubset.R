@@ -7,11 +7,11 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 vectorSubset = function(vec, mat) {
   # copied from SpatialUtils to avoid dependency
+  # used for vectorised subsetting of a vector according to a matrix
+  # within queryNamedKNN()
 
   # vec is a named vector
   # mat is a matrix containing the names or indices for which you want

@@ -11,9 +11,7 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 "%**%" <- function(X,Y) {
   # multiply two matrices but first reorder rows of the
   # second matrix

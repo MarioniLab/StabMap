@@ -10,9 +10,7 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 "%*1%" <- function(a, b) {
   if (is.list(a)) {
     a <- a[[1]]

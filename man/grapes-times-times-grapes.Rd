@@ -20,6 +20,4 @@ matrix
 This function multiplies two matrices but first reorders the rows of the
 second matrix to match the columns of the first matrix
 }
-\examples{
-
-}
+\keyword{internal}

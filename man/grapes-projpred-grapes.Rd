@@ -20,6 +20,4 @@ This function takes a data matrix a and, depending on the class of b,
 projects the data using feature weights, or predicts new values using
 linear discriminant analysis (LDA) model object, or both.
 }
-\examples{
-
-}
+\keyword{internal}

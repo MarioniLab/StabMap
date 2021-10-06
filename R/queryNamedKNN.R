@@ -8,10 +8,9 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 queryNamedKNN = function(coords_reference, coords_query, k) {
+  # used in imputeEmbedding()
 
   require(BiocNeighbors)
 

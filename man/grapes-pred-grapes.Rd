@@ -21,6 +21,4 @@ corresponding to cells/observations
 This function performs model predictions via the \code{predict} function
 for each column of data.
 }
-\examples{
-
-}
+\keyword{internal}

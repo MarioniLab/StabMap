@@ -11,9 +11,7 @@
 #'
 #' @return matrix
 #'
-#' @examples
-#'
-#' @export
+#' @keywords internal
 "%projpred%" <- function(a, b) {
   # a is a matrix
   # b is a list of a 1. projection matrix

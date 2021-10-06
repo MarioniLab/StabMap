@@ -19,6 +19,4 @@ This function first binds a column filled with 1s named \code{intercept} to
 \code{a}, then performs rownames and colnames-aware (\code{\%**\%}) matrix
 multiplication with \code{b}.
 }
-\examples{
-
-}
+\keyword{internal}
