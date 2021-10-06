@@ -52,4 +52,42 @@ stabMap
 }
 \examples{
 
+# simulate some data, 300 genes, 150 cells.
+full_expr = matrix(rnorm(300*150),
+nrow = 300, ncol = 150,
+dimnames = list(paste0("gene_", 1:300),
+paste0("cell_", 1:150)))
+
+# build list of discrete assays with non-overlapping features
+assay_list = list(
+D1 = full_expr[1:150, 1:50],
+D2 = full_expr[76:215, 51:100],
+D3 = full_expr[151:300, 101:150]
+)
+
+# assign labels to one group of cells
+labels_list = list(
+D1 = rep(letters[1:5], each = 10)
+)
+
+# note which datasets should be treated as references
+reference_list = list(
+D1 = TRUE,
+D2 = FALSE,
+D3 = TRUE
+)
+
+# examine the topology of this mosaic data integration
+mosaicDataUpSet(assay_list)
+plot(mosaicDataTopology(assay_list))
+
+# perform stabMap
+out = stabMap(assay_list,
+labels_list = labels_list,
+reference_list = reference_list,
+ncomponentsReference = 20,
+ncomponentsSubset = 20)
+
+head(out)
+
 }
