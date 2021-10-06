@@ -1,15 +1,17 @@
-#' featureNetwork
+#' mosaicDataTopology
 #'
-#' featureNetwork
+#' Generate mosaic data topology network as an igraph object.
 #'
-#' @param assay_list assay list
+#' @param assay_list a list of matrices with rownames (features) specified
 #'
-#' @return igraph
+#' @return igraph with nodes corresponding to \code{assay_list} elements,
+#' and edges present if the matrices share at least one rowname.
 #'
 #' @examples
 #'
 #' @export
-featureNetwork = function(assay_list) {
+mosaicDataTopology = function(assay_list) {
+  # previously named "featureNetwork"
   require(igraph)
   # given a list of assays, generate a
   # network relating the datasets to each other

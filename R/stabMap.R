@@ -63,9 +63,9 @@ stabMap = function(assay_list,
     reference_list <- sapply(names(assay_list), function(x) x %in% reference_list, simplify = FALSE)
   }
 
-  if (plot) plotFeatureOverlaps(assay_list)
+  if (plot) mosaicDataUpSet(assay_list)
 
-  assay_network = featureNetwork(assay_list)
+  assay_network = mosaicDataTopology(assay_list)
   if (plot) plot(assay_network)
 
   # check whether the network is a connected component

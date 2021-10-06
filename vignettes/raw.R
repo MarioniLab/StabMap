@@ -35,8 +35,8 @@ reference_list = list(
 )
 
 # first examine the feature relationships:
-plotFeatureOverlaps(assay_list)
-plot(featureNetwork(assay_list))
+mosaicDataUpSet(assay_list)
+plot(mosaicDataTopology(assay_list))
 out = stabMap(assay_list,
               labels_list = labels_list,
               reference_list = reference_list,
