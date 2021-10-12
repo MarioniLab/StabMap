@@ -1,12 +1,11 @@
-#' runOps
+#' Run a sequence of binary operations
 #'
-#' runOps
+#' @param obj list of objects.
+#' @param ops list of operations (length should be 1 less than `obj`).
+#' @param leftToRight logical whether operations should be performed in order
+#' from left to right (default), or right to left.
 #'
-#' @param obj obj
-#' @param ops ops
-#' @param leftToRight leftToRight
-#'
-#' @return matrix
+#' @return matrix or array output of the sequence of binary operations
 #'
 #' @keywords internal
 .runOps = function(obj, ops, leftToRight = TRUE) {

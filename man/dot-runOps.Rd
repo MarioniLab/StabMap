@@ -2,21 +2,22 @@
 % Please edit documentation in R/runOps.R
 \name{.runOps}
 \alias{.runOps}
-\title{runOps}
+\title{Run a sequence of binary operations}
 \usage{
 .runOps(obj, ops, leftToRight = TRUE)
 }
 \arguments{
-\item{obj}{obj}
+\item{obj}{list of objects.}
 
-\item{ops}{ops}
+\item{ops}{list of operations (length should be 1 less than `obj`).}
 
-\item{leftToRight}{leftToRight}
+\item{leftToRight}{logical whether operations should be performed in order
+from left to right (default), or right to left.}
 }
 \value{
-matrix
+matrix or array output of the sequence of binary operations
 }
 \description{
-runOps
+Run a sequence of binary operations
 }
 \keyword{internal}

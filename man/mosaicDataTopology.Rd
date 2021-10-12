@@ -19,6 +19,7 @@ rownames among data matrices.
 Generate mosaic data topology network as an igraph object.
 }
 \examples{
+set.seed(2021)
 assay_list = mockMosaicData()
 mdt = mosaicDataTopology(assay_list)
 mdt

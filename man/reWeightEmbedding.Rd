@@ -2,23 +2,55 @@
 % Please edit documentation in R/reWeightEmbedding.R
 \name{reWeightEmbedding}
 \alias{reWeightEmbedding}
-\title{Re-weight embedding}
+\title{Re-weight StabMap embedding}
 \usage{
 reWeightEmbedding(embedding, weights = NULL, factor = 1e+06)
 }
 \arguments{
-\item{embedding}{Output from stabMap}
+\item{embedding}{Joint embedding as output from stabMap.}
 
-\item{weights}{weights vector}
+\item{weights}{(optional) named numeric vector giving relative weights for
+each reference dataset.}
 
-\item{factor}{numeric value}
+\item{factor}{numeric multiplicative value to offset near-zero values.}
 }
 \value{
-matrix
+matrix of same dimensions as `embedding`.
 }
 \description{
-Re-weights embedding according to given weights
+Re-weights embedding according to given weights for each reference dataset.
+This gives more or less weighting to each contributing dataset and method
+(PCA or LDA),
 }
 \examples{
+set.seed(2021)
+assay_list = mockMosaicData()
+lapply(assay_list, dim)
+
+# specify which datasets to use as reference coordinates
+reference_list = c("D1", "D3")
+
+# specify some sample labels to distinguish using linear discriminant
+# analysis (LDA)
+labels_list = list(
+D1 = rep(letters[1:5], length.out = ncol(assay_list[["D1"]]))
+)
+
+# stabMap
+out = stabMap(assay_list,
+              reference_list = reference_list,
+              labels_list = labels_list,
+              ncomponentsReference = 20,
+              ncomponentsSubset = 20)
+
+# look at the scale of each component and discriminant
+boxplot(out, las = 2, outline = FALSE)
+
+# re-weight embedding for less contribution from LDs and equal contribution
+# from PCs of both references
+out_reweighted = reWeightEmbedding(out, weights = c("D1_LD" = 0.5, "D1_PC" = 1, "D3_PC" = 1))
+
+# look at the new scale of each component and discriminant
+boxplot(out_reweighted, las = 2, outline = FALSE)
 
 }

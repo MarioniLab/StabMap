@@ -2,39 +2,55 @@
 % Please edit documentation in R/imputeEmbedding.R
 \name{imputeEmbedding}
 \alias{imputeEmbedding}
-\title{imputeEmbedding}
+\title{Impute expression values using StabMap joint embedding}
 \usage{
 imputeEmbedding(
   assay_list,
-  embedding = NULL,
-  reference = Reduce(assay_list, colnames),
-  query = Reduce(assay_list, colnames),
+  embedding,
+  reference = Reduce(union, lapply(assay_list, colnames)),
+  query = Reduce(union, lapply(assay_list, colnames)),
   neighbours = 5,
-  fun = mean,
-  ...
+  fun = mean
 )
 }
 \arguments{
-\item{assay_list}{assay_list}
+\item{assay_list}{List of mosaic data from which to perform imputation.}
 
-\item{embedding}{embedding}
+\item{embedding}{Joint embedding from which to extract nearest neighbour
+relationships.}
 
-\item{reference}{reference}
+\item{reference}{Character vector of cell names to treat as reference cells.}
 
-\item{query}{query}
+\item{query}{Character vector of cell names to treat as query cells.}
 
-\item{neighbours}{neighbours}
+\item{neighbours}{Number of nearest neighbours to consider (default 5).}
 
-\item{fun}{fun}
-
-\item{...}{...}
+\item{fun}{function (default `mean`) to aggregate nearest neighbours'
+imputed values.}
 }
 \value{
-matrix
+List containing imputed expression values from each assay_list
+data matrix which contains reference cells.
 }
 \description{
-imputeEmbedding
+Performs naive imputation of expression values from the list of mosaic data
+and joint embedding from StabMap.
 }
 \examples{
+set.seed(2021)
+assay_list = mockMosaicData()
+lapply(assay_list, dim)
+
+# stabMap
+out = stabMap(assay_list,
+              ncomponentsReference = 20,
+              ncomponentsSubset = 20)
+
+# impute values
+imp = imputeEmbedding(assay_list, out)
+
+# inspect the imputed values
+lapply(imp, dim)
+imp[[1]][1:5,1:5]
 
 }

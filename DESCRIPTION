@@ -3,15 +3,11 @@ Type: Package
 Title: Mosaic single cell data integration using non-overlapping features
 Version: 0.1.0
 Authors@R: 
-    c(person("Shila", "Ghazanfar", role=c("aut", "cre", "ctb"), email = "shazanfar@gmail.com"))
-Description: Mosaic single cell data integration using non-overlapping features
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
-    Use four spaces when indenting paragraphs within the Description.
+    c(person("Shila", "Ghazanfar", role=c("aut", "cre", "ctb"), 
+    email = "shazanfar@gmail.com"))
+Description: StabMap performs single cell mosaic data integration by first 
+    building a mosaic data topology, and for each reference dataset, traverses 
+    the topology to project and predict data onto a common embedding.
 License: GPL-2
 Encoding: UTF-8
 URL: https://marionilab.github.io/StabMap

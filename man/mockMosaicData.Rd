@@ -33,6 +33,7 @@ Mock up a mosaic data list using simulated data, for use in documentation
 examples.
 }
 \examples{
+set.seed(2021)
 assay_list = mockMosaicData()
 lapply(assay_list, dim)
 

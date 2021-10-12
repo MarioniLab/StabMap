@@ -2,7 +2,7 @@
 % Please edit documentation in R/stabMap.R
 \name{stabMap}
 \alias{stabMap}
-\title{stabMap}
+\title{Mosaic single cell data integration using non-overlapping features}
 \usage{
 stabMap(
   assay_list,
@@ -20,73 +20,74 @@ stabMap(
 )
 }
 \arguments{
-\item{assay_list}{assay_list}
+\item{assay_list}{A list of data matrices with rownames (features) specified.}
 
-\item{labels_list}{labels_list}
+\item{labels_list}{(optional) named list containing cell labels}
 
-\item{reference_list}{reference_list}
+\item{reference_list}{Named list containing logical values whether the data
+matrix should be considered as a reference dataset, alternatively a
+character vector containing the names of the reference data matrices.}
 
-\item{reference_features_list}{reference_features_list}
+\item{reference_features_list}{List of features to consider as reference data
+(default is all available features).}
 
-\item{ncomponentsReference}{ncomponentsReference}
+\item{ncomponentsReference}{Number of principal components for embedding
+reference data.}
 
-\item{ncomponentsSubset}{ncomponentsSubset}
+\item{ncomponentsSubset}{Number of principal components for embedding query
+data prior to projecting to the reference.}
 
-\item{suppressMessages}{suppressMessages}
+\item{suppressMessages}{Logical whether to suppress messages (default TRUE).}
 
-\item{projectAll}{projectAll}
+\item{projectAll}{Logical whether to re-project reference data along with
+query (default FALSE).}
 
-\item{maxFeatures}{maxFeatures}
+\item{maxFeatures}{Maximum number of features to consider for predicting
+principal component scores (default 1000).}
 
-\item{plot}{plot}
+\item{plot}{Logical whether to plot mosaic data UpSet plot and mosaic data
+topology networks (default TRUE).}
 
-\item{scale.center}{scale.center}
+\item{scale.center}{Logical whether to re-center data to a mean of 0 (default
+FALSE).}
 
-\item{scale.scale}{scale.scale}
+\item{scale.scale}{Logical whether to re-scale data to standard deviation of
+1 (default FALSE).}
 }
 \value{
-matrix
+matrix containing common embedding with rows corresponding to cells,
+and columns corresponding to PCs or LDs for reference dataset(s).
 }
 \description{
-stabMap
+stabMap performs mosaic data integration by first building a mosaic data
+topology, and for each reference dataset, traverses the topology to
+project and predict data onto a common principal component (PC) or linear
+discriminant (LD) embedding.
 }
 \examples{
+set.seed(2021)
+assay_list = mockMosaicData()
+lapply(assay_list, dim)
 
-# simulate some data, 300 genes, 150 cells.
-full_expr = matrix(rnorm(300*150),
-nrow = 300, ncol = 150,
-dimnames = list(paste0("gene_", 1:300),
-paste0("cell_", 1:150)))
+# specify which datasets to use as reference coordinates
+reference_list = c("D1", "D3")
 
-# build list of discrete assays with non-overlapping features
-assay_list = list(
-D1 = full_expr[1:150, 1:50],
-D2 = full_expr[76:215, 51:100],
-D3 = full_expr[151:300, 101:150]
-)
-
-# assign labels to one group of cells
+# specify some sample labels to distinguish using linear discriminant
+# analysis (LDA)
 labels_list = list(
-D1 = rep(letters[1:5], each = 10)
-)
-
-# note which datasets should be treated as references
-reference_list = list(
-D1 = TRUE,
-D2 = FALSE,
-D3 = TRUE
+D1 = rep(letters[1:5], length.out = ncol(assay_list[["D1"]]))
 )
 
 # examine the topology of this mosaic data integration
 mosaicDataUpSet(assay_list)
 plot(mosaicDataTopology(assay_list))
 
-# perform stabMap
+# stabMap
 out = stabMap(assay_list,
-labels_list = labels_list,
-reference_list = reference_list,
-ncomponentsReference = 20,
-ncomponentsSubset = 20)
+              reference_list = reference_list,
+              labels_list = labels_list,
+              ncomponentsReference = 20,
+              ncomponentsSubset = 20)
 
 head(out)
 

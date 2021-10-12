@@ -10,6 +10,7 @@
 #' among each of the data matrices in \code{assay_list}.
 #'
 #' @examples
+#' set.seed(2021)
 #' assay_list = mockMosaicData()
 #' mosaicDataUpSet(assay_list)
 #'

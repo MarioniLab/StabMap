@@ -10,6 +10,7 @@
 #' rownames among data matrices.
 #'
 #' @examples
+#' set.seed(2021)
 #' assay_list = mockMosaicData()
 #' mdt = mosaicDataTopology(assay_list)
 #' mdt

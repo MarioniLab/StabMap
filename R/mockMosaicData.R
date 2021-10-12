@@ -14,6 +14,7 @@
 #' specified.
 #'
 #' @examples
+#' set.seed(2021)
 #' assay_list = mockMosaicData()
 #' lapply(assay_list, dim)
 #'
@@ -29,7 +30,7 @@ mockMosaicData = function(names = c("D1", "D2", "D3"),
                           ...) {
 
   assay_list = mapply(function(name, ncell, ngene)
-    matrix(get(fun)(ncell*ngene, ...),
+    matrix(get(fun)(ncell*length(ngene), ...),
            nrow = length(ngene),
            ncol = ncell,
            dimnames = list(

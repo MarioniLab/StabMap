@@ -1,32 +1,48 @@
-#' imputeEmbedding
+#' Impute expression values using StabMap joint embedding
 #'
-#' imputeEmbedding
+#' Performs naive imputation of expression values from the list of mosaic data
+#' and joint embedding from StabMap.
 #'
-#' @param assay_list assay_list
-#' @param embedding embedding
-#' @param reference reference
-#' @param query query
-#' @param neighbours neighbours
-#' @param fun fun
-#' @param ... ...
+#' @param assay_list List of mosaic data from which to perform imputation.
+#' @param embedding Joint embedding from which to extract nearest neighbour
+#' relationships.
+#' @param reference Character vector of cell names to treat as reference cells.
+#' @param query Character vector of cell names to treat as query cells.
+#' @param neighbours Number of nearest neighbours to consider (default 5).
+#' @param fun function (default `mean`) to aggregate nearest neighbours'
+#' imputed values.
 #'
-#' @return matrix
+#' @return List containing imputed expression values from each assay_list
+#' data matrix which contains reference cells.
 #'
 #' @examples
+#' set.seed(2021)
+#' assay_list = mockMosaicData()
+#' lapply(assay_list, dim)
+#'
+#' # stabMap
+#' out = stabMap(assay_list,
+#'               ncomponentsReference = 20,
+#'               ncomponentsSubset = 20)
+#'
+#' # impute values
+#' imp = imputeEmbedding(assay_list, out)
+#'
+#' # inspect the imputed values
+#' lapply(imp, dim)
+#' imp[[1]][1:5,1:5]
 #'
 #' @export
 imputeEmbedding = function(assay_list,
-                           embedding = NULL,
-                           reference = Reduce(assay_list, colnames),
-                           query = Reduce(assay_list, colnames),
+                           embedding,
+                           reference = Reduce(union, lapply(assay_list, colnames)),
+                           query = Reduce(union, lapply(assay_list, colnames)),
                            neighbours = 5,
-                           fun = mean,
-                           ...) {
+                           fun = mean) {
 
   # naive imputation given a (potentially batch corrected) StabMap embedding
   # input:
   # assay_list (typically the original input to StabMap)
-  # StabMap embedding (if NULL then performs stabmap and passes along all the params)
   # which are the query cells
   # which are the reference cells
   # number of nearest neighbours
@@ -34,8 +50,7 @@ imputeEmbedding = function(assay_list,
   # default behaviour is to output a smoothed assay_list object
 
   require(BiocNeighbors)
-
-  # given the embedding calculate the nearest neighbours
+  require(abind)
 
   has_reference = lapply(assay_list, function(x) any(reference %in% colnames(x)))
 
@@ -51,15 +66,6 @@ imputeEmbedding = function(assay_list,
 
     knn_out = queryNamedKNN(embedding[referenceCells, ], embedding[query,], neighbours)
 
-
-    # cnames = colnames(assayMat)
-    # require(Matrix)
-    # imputedValues = apply(knn_out, 1, function(knnval)
-    #     assayMat %*% (cnames %in% knnval)
-    # )
-    # rownames(imputedValues) <- rownames(assayMat)
-
-    require(abind)
     imputedList = apply(knn_out, 2, function(knnval) {
       assayMat[,knnval]
     }, simplify = FALSE)
@@ -68,30 +74,8 @@ imputeEmbedding = function(assay_list,
     imputedMeans = apply(imputedArray, 1:2, fun)
     colnames(imputedMeans) <- rownames(knn_out)
 
-    # ### example:
-    # A <- array(c(rep(1,20), rep(2,20), rep(3,20)),dim = c(10,2,3))
-    # B <- matrix(c(1:10), nrow = 2)
-    # # multiply each A[,,i]%*%B
-    #
-    # C <- array(NA, dim=c(nrow(A), ncol(B), 3))
-    # C[] <- apply(A, 3, function(x) x%*%B)
-    # ###
-
-    # want:
-    # C = nrow(assayMat) x nrow(knn_out) x length(neighbours)
-    # so therefore
-    # B = assayMat
-    # A is an array with dimensions
-    # ncol(assayMat) x nrow(knn_out) x 5
-    #
-    # A_list = apply(knn_out, 2, function(knns) {
-    #   cnames %in% knns
-    # })
-
-    # imputed_list[[assayName]] <- imputedValues / neighbours
     imputed_list[[assayName]] <- imputedMeans
   }
 
   return(imputed_list)
-
 }
