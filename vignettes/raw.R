@@ -10,28 +10,21 @@
 ############################
 library(StabMap)
 
-# simulate some data
-full_expr = matrix(rnorm(300*150), nrow = 300, ncol = 150,
-                   dimnames = list(paste0("gene_", 1:300),
-                                   paste0("cell_", 1:150)))
+set.seed(2021)
 
-# build list of discrete assays with non-overlapping features
-assay_list = list(
-  D_R = full_expr[1:150, 1:50],
-  D_j = full_expr[76:215, 51:100],
-  D_i = full_expr[151:300, 101:150]
-)
+# simulate some data as an assay list
+assay_list = mockMosaicData()
 
 # assign labels to one group of cells
 labels_list = list(
-  D_R = rep(letters[1:5], each = 10)
+  D1 = rep(letters[1:5], length.out = ncol(assay_list[["D1"]]))
 )
 
 # whether the data should be treated as reference
 reference_list = list(
-  D_R = TRUE,
-  D_j = FALSE,
-  D_i = TRUE
+  D1 = TRUE,
+  D2 = FALSE,
+  D3 = TRUE
 )
 
 # first examine the feature relationships:
