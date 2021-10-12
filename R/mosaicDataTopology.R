@@ -2,16 +2,21 @@
 #'
 #' Generate mosaic data topology network as an igraph object.
 #'
-#' @param assay_list a list of matrices with rownames (features) specified
+#' @param assay_list a list of data matrices with rownames (features) specified.
 #'
-#' @return igraph with nodes corresponding to \code{assay_list} elements,
-#' and edges present if the matrices share at least one rowname.
+#' @return igraph weighted network with nodes corresponding to
+#' \code{assay_list} elements, and edges present if the matrices share at
+#' least one rowname. Edge weights correspond to the number of shared
+#' rownames among data matrices.
 #'
 #' @examples
+#' assay_list = mockMosaicData()
+#' mdt = mosaicDataTopology(assay_list)
+#' mdt
+#' plot(mdt)
 #'
 #' @export
 mosaicDataTopology = function(assay_list) {
-  # previously named "featureNetwork"
   require(igraph)
   # given a list of assays, generate a
   # network relating the datasets to each other

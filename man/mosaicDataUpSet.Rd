@@ -4,18 +4,27 @@
 \alias{mosaicDataUpSet}
 \title{mosaicDataUpSet}
 \usage{
-mosaicDataUpSet(assay_list, plot = TRUE)
+mosaicDataUpSet(assay_list, plot = TRUE, ...)
 }
 \arguments{
-\item{assay_list}{a list of matrices with rownames (features) specified}
+\item{assay_list}{a list of data matrices with rownames (features) specified.}
+
+\item{plot}{logical (default TRUE) whether the UpSet plot should be printed.}
+
+\item{...}{further arguments passed to `upset` from the `UpSetR` package.}
 }
 \value{
 UpSet object displaying degree of overlap of rownames (features)
 among each of the data matrices in \code{assay_list}.
 }
 \description{
-plots feature overlaps as an UpSet plot
+Plots feature overlaps of mosaic data as an UpSet plot.
 }
 \examples{
+assay_list = mockMosaicData()
+mosaicDataUpSet(assay_list)
+
+# additional arguments from UpSetR::upset()
+mosaicDataUpSet(assay_list, empty.intersections = TRUE)
 
 }
