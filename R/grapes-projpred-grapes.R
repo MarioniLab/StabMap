@@ -21,7 +21,7 @@
   # alternatively, if b is already an lda
   # object then just perform the prediction
 
-  if (class(b)[1] == "lda") {
+  if (is(b, "lda")) {
     require(MASS)
     features = rownames(b$scaling)
     am = MASS:::predict.lda(b, newdata = a[,features])$x
@@ -33,11 +33,11 @@
   }
 
   ab = a %*% b[[1]]
-  if (class(b[[2]]) == "lda") {
+  if (is(b[[2]], "lda")) {
     require(MASS)
     am = MASS:::predict.lda(b[[2]], newdata = a)$x
   }
-  if (class(b[[2]]) == "svm") {
+  if (is(b[[2]], "svm")) {
     am = attr(predict(b[[2]], newdata = a, decision.values = TRUE), "decision.values")
   }
 

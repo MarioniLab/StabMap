@@ -51,6 +51,7 @@ imputeEmbedding = function(assay_list,
 
   require(BiocNeighbors)
   require(abind)
+  # require(slam)
 
   has_reference = lapply(assay_list, function(x) any(reference %in% colnames(x)))
 
@@ -69,7 +70,15 @@ imputeEmbedding = function(assay_list,
     imputedList = apply(knn_out, 2, function(knnval) {
       assayMat[,knnval]
     }, simplify = FALSE)
-    imputedArray = abind(imputedList, along = 3)
+
+    if (!is(imputedList[[1]], "matrix")) {
+      message("only simple (non-sparse) matrix data currently supported, converting to dense matrix")
+      imputedArray = abind(lapply(imputedList, as.matrix), along = 3)
+    } else {
+      imputedArray = abind(imputedList, along = 3)
+    }
+    # imputedArray = do.call(slam::abind_simple_sparse_array, args = list(imputedList, MARGIN = 1L))
+    # doesn't work, could use BumpyMatrix to combine?
 
     imputedMeans = apply(imputedArray, 1:2, fun)
     colnames(imputedMeans) <- rownames(knn_out)

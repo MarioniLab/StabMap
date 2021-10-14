@@ -1,0 +1,287 @@
+---
+title: "StabMap: Mosaic single cell data integration using non-overlapping features"
+author:
+  - Shila Ghazanfar
+output:
+  BiocStyle::html_document:
+    toc_float: true
+  BiocStyle::pdf_document: default
+package: StabMap
+vignette: |
+  %\VignetteIndexEntry{Mosaic single cell data integration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = FALSE
+)
+```
+
+
+```{r setup, message=FALSE, warning=FALSE}
+library(StabMap)
+library(SingleCellMultiModal)
+library(scran)
+```
+
+```{r}
+set.seed(2021)
+```
+
+# Introduction
+
+StabMap is a technique for performing mosaic single cell data integration. 
+
+In this vignette we will elaborate on how these steps are implemented in the 
+`StabMap` package.
+
+# Load data
+
+```{r}
+mae <- scMultiome("pbmc_10x", mode = "*", dry.run = FALSE, format = "MTX")
+```
+
+Perform some exploration of this data.
+
+```{r}
+mae
+
+upsetSamples(mae)
+
+head(colData(mae))
+
+dim(experiments(mae)[["rna"]])
+
+names(experiments(mae))
+```
+
+Normalise and select features for the RNA modality.
+
+```{r}
+sce.rna <- experiments(mae)[["rna"]]
+
+# Normalisation
+sce.rna <- logNormCounts(sce.rna)
+
+# Feature selection
+decomp <- modelGeneVar(sce.rna)
+hvgs <- rownames(decomp)[decomp$mean>0.01 & decomp$p.value <= 0.05]
+
+length(hvgs)
+
+sce.rna <- sce.rna[hvgs,]
+```
+
+Normalise and select features for the ATAC modality.
+
+```{r}
+dim(experiments(mae)[["atac"]])
+
+sce.atac <- experiments(mae)[["atac"]]
+
+# Normalise
+sce.atac <- logNormCounts(sce.atac)
+
+# Feature selection using highly variable peaks
+# And adding matching peaks to genes
+decomp <- modelGeneVar(sce.atac)
+hvgs <- rownames(decomp)[decomp$mean>0.25
+                         & decomp$p.value <= 0.05]
+length(hvgs)
+
+sce.atac <- sce.atac[hvgs,]
+```
+
+Create a composite full data matrix by concatenating.
+
+```{r}
+logcounts_all = rbind(logcounts(sce.rna), logcounts(sce.atac))
+dim(logcounts_all)
+
+assayType = ifelse(rownames(logcounts_all) %in% rownames(sce.rna),
+                   "rna", "atac")
+table(assayType)
+```
+
+# Mosaic data integration with StabMap
+
+We will simulate a situation where half of the cells correspond to the Multiome
+modality, and half of the cells correspond to the RNA modality. Our goal is
+to then generate a joint embedding of the cells using all data, and to impute 
+the missing ATAC values from the RNA modality cells.
+
+```{r}
+dataType = setNames(sample(c("RNA", "Multiome"), ncol(logcounts_all),
+                           prob = c(0.5,0.5), replace = TRUE),
+                    colnames(logcounts_all))
+table(dataType)
+
+assay_list = list(
+  RNA = logcounts_all[assayType %in% c("rna"), dataType %in% c("RNA")],
+  Multiome = logcounts_all[assayType %in% c("rna", "atac"), dataType %in% c("Multiome")]
+)
+
+lapply(assay_list, dim)
+lapply(assay_list, class)
+```
+
+Examine the shared features between the two datasets using `mosaicDataUpSet()`.
+
+```{r}
+mosaicDataUpSet(assay_list, plot = FALSE)
+```
+
+From this we note that there are shared features between the RNA and Multiome
+datasets, but there are many features that are observed only in the Multiome
+dataset and not the RNA - as we had constructed.
+
+We can understand the `mosaicDataTopology()` of these datasets, which
+generates an `igraph` object, which can be inspected and plotted.
+
+```{r}
+mdt = mosaicDataTopology(assay_list)
+mdt
+plot(mdt)
+```
+
+From this we note that the datasets RNA and Multiome share at least some 
+features. StabMap requires that the mosaic data topology network be connected,
+that is, that there should be a path between every pair of nodes in the network.
+
+We generate a common joint embedding for these data using StabMap. Since the 
+Multiome data contains all features, we treat this as the reference dataset.
+Since we already examined the mosaic data topology, we set `plot = FALSE`.
+
+```{r}
+stab = stabMap(assay_list,
+               reference_list = c("Multiome"),
+               plot = FALSE)
+dim(stab)
+stab[1:5,1:5]
+```
+
+We can reduce the dimension further using non-linear approaches such as UMAP.
+
+```{r}
+stab_umap = calculateUMAP(t(stab))
+dim(stab_umap)
+
+plot(stab_umap, pch = 16, cex = 0.3, col = factor(dataType[rownames(stab)]))
+```
+
+Here we see that the RNA and Multiome cells are fairly well-mixed.
+
+# Data imputation after StabMap
+
+Given the joint embedding, we can predict the missing ATAC values using
+`imputeEmbedding()`. We provide the data list, the joint embedding as output 
+from `stabMap()`. We set the Multiome cells as reference and the RNA cells as
+query. This is useful for downstream visualisation or further interpretation.
+
+```{r}
+imp = imputeEmbedding(
+  assay_list,
+  stab,
+  reference = colnames(assay_list[["Multiome"]]),
+  query = colnames(assay_list[["RNA"]]))
+
+class(imp)
+names(imp)
+lapply(imp, dim)
+imp[["Multiome"]][1:5,1:5]
+```
+
+# Disjoint mosaic data integration with StabMap
+
+StabMap is a flexible framework for mosaic data integration, and can still 
+integrate data even when there are pairs of datasets that share no features at 
+all. So long as there is a path connecting the datasets along the mosaic data 
+topology (and the underlying assumption that the shared features along these
+paths contain information), then we can extract meaningful joint embeddings. To
+demonstrate this, we will simulate three data sources.
+
+```{r}
+dataTypeDisjoint = setNames(sample(c("RNA", "Multiome", "ATAC"), ncol(logcounts_all),
+                                   prob = c(0.3,0.3, 0.3), replace = TRUE),
+                            colnames(logcounts_all))
+table(dataTypeDisjoint)
+
+assay_list_disjoint = list(
+  RNA = logcounts_all[assayType %in% c("rna"), dataTypeDisjoint %in% c("RNA")],
+  Multiome = logcounts_all[assayType %in% c("rna", "atac"), dataTypeDisjoint %in% c("Multiome")],
+  ATAC = logcounts_all[assayType %in% c("atac"), dataTypeDisjoint %in% c("ATAC")]
+)
+
+lapply(assay_list_disjoint, dim)
+lapply(assay_list_disjoint, class)
+```
+
+Using `mosaicDataUpSet()`, we note that there are no shared features between 
+the ATAC and RNA datasets. We might be able to match features by extracting
+genomic positions and making the "central dogma assumption", that is, that the
+peaks associated with a genomic position overlapping a gene should correspond to
+positive gene expression for that gene. However, we need not make this 
+assumption for the data integration to be performed.
+
+```{r}
+mosaicDataUpSet(assay_list_disjoint, plot = FALSE)
+```
+
+We can understand the `mosaicDataTopology()` of these datasets, which
+generates an `igraph` object, which can be inspected and plotted.
+
+```{r}
+mdt_disjoint = mosaicDataTopology(assay_list_disjoint)
+mdt_disjoint
+plot(mdt_disjoint)
+```
+
+StabMap only requires that the mosaic data topology network be connected,
+that is, that there should be a path between every pair of nodes in the network.
+Since there is a path between RNA and ATAC (via Multiome), we can proceed.
+
+We now generate a common joint embedding for these data using StabMap. Since the 
+Multiome data contains all features, we again treat this as the reference 
+dataset. Since we already examined the mosaic data topology, we set 
+`plot = FALSE`.
+
+```{r}
+stab_disjoint = stabMap(assay_list_disjoint,
+                        reference_list = c("Multiome"),
+                        plot = FALSE)
+dim(stab_disjoint)
+stab_disjoint[1:5,1:5]
+```
+
+We can reduce the dimension further using non-linear approaches such as UMAP.
+
+```{r}
+stab_disjoint_umap = calculateUMAP(t(stab_disjoint))
+dim(stab_disjoint_umap)
+
+plot(stab_disjoint_umap, pch = 16, cex = 0.3,
+     col = factor(dataTypeDisjoint[rownames(stab_disjoint)]))
+```
+
+Here we see that the RNA, ATAC and Multiome cells are fairly well-mixed.
+
+Colouring the cells by their original cell type, we can also see that the 
+mosaic data integration is meaningful.
+
+```{r}
+cellType = setNames(mae$celltype, colnames(mae[[1]]))
+
+plot(stab_disjoint_umap, pch = 16, cex = 0.3,
+     col = factor(cellType[rownames(stab_disjoint)]))
+```
+
+<details>
+  <summary>**Session Info**</summary>
+  
+```{r}
+sessionInfo()
+```
+
+</details>

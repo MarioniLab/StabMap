@@ -38,5 +38,11 @@ mosaicDataTopology = function(assay_list) {
   g = graph.edgelist(pairs_overlapping, directed = FALSE)
   E(g)$weight <- edge_weights_overlapping
 
+  # add some aesthetic attributes to the network
+  V(g)$frame.color = "white"
+  V(g)$color = "white"
+  V(g)$label.color = "black"
+  V(g)$label.family = "sans"
+
   return(g)
 }

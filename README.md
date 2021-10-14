@@ -1,4 +1,5 @@
 # StabMap: Mosaic single cell data integration using non-overlapping features
+<img src="man/figures/hex.png" align="right"  height="250" width="250"/>
 
 ## Installation
 
@@ -19,3 +20,7 @@ devtools::install_github("MarioniLab/StabMap")
 ## Vignette
 
 You can find the vignette at this website: TBD.
+
+## Contact
+
+shila.ghazanfar \<at\> cruk.cam.ac.uk or marioni \<at\> ebi.ac.uk
