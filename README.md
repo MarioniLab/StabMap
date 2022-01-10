@@ -19,7 +19,7 @@ devtools::install_github("MarioniLab/StabMap")
 
 ## Vignette
 
-You can find the vignette at this website: TBD.
+You can find the vignette at this [website](https://marionilab.github.io/StabMap/).
 
 ## Contact
 
