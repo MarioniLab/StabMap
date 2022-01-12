@@ -1,7 +1,7 @@
 Package: StabMap
 Type: Package
 Title: Mosaic single cell data integration using non-overlapping features
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person("Shila", "Ghazanfar", role=c("aut", "cre", "ctb"), 
     email = "shazanfar@gmail.com"))

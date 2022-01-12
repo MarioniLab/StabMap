@@ -19,7 +19,7 @@ This gives more or less weighting to each contributing dataset and method
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -112,7 +112,6 @@ each reference dataset.</p></dd>
 <span class="r-in">              labels_list <span class="op">=</span> <span class="va">labels_list</span>,</span>
 <span class="r-in">              ncomponentsReference <span class="op">=</span> <span class="fl">20</span>,</span>
 <span class="r-in">              ncomponentsSubset <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="reWeightEmbedding-1.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> treating "D1" as reference</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D1": "D1"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D1": "D2" -&gt; "D1"</span>
@@ -125,11 +124,11 @@ each reference dataset.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D3": "D3"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D3": "D2" -&gt; "D3"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D3": "D1" -&gt; "D2" -&gt; "D3"</span>
-<span class="r-plt img"><img src="reWeightEmbedding-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="reWeightEmbedding-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># look at the scale of each component and discriminant</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">out</span>, las <span class="op">=</span> <span class="fl">2</span>, outline <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="reWeightEmbedding-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="reWeightEmbedding-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># re-weight embedding for less contribution from LDs and equal contribution</span></span>
 <span class="r-in"><span class="co"># from PCs of both references</span></span>
@@ -138,7 +137,7 @@ each reference dataset.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># look at the new scale of each component and discriminant</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">out_reweighted</span>, las <span class="op">=</span> <span class="fl">2</span>, outline <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="reWeightEmbedding-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="reWeightEmbedding-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
