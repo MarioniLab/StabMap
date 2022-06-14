@@ -1,7 +1,7 @@
-pandoc: 2.11.2
-pkgdown: 2.0.1
+pandoc: 2.17.1.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   stabMap_PBMC_Multiome: stabMap_PBMC_Multiome.html
-last_built: 2022-01-25T10:12Z
+last_built: 2022-06-14T06:22Z
 

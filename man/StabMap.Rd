@@ -15,8 +15,8 @@ stabMap(
   projectAll = FALSE,
   maxFeatures = 1000,
   plot = TRUE,
-  scale.center = FALSE,
-  scale.scale = FALSE
+  scale.center = TRUE,
+  scale.scale = TRUE
 )
 }
 \arguments{

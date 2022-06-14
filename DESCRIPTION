@@ -1,7 +1,7 @@
 Package: StabMap
 Type: Package
 Title: Mosaic single cell data integration using non-overlapping features
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     c(person("Shila", "Ghazanfar", role=c("aut", "cre", "ctb"), 
     email = "shazanfar@gmail.com"))
@@ -29,5 +29,5 @@ Imports: BiocNeighbors,
     UpSetR
 Suggests: knitr
 LazyData: false
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr

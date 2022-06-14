@@ -69,22 +69,40 @@ stabMap = function(assay_list,
                    projectAll = FALSE,
                    maxFeatures = 1000,
                    plot = TRUE,
-                   scale.center = FALSE,
-                   scale.scale = FALSE) {
+                   scale.center = TRUE,
+                   scale.scale = TRUE) {
 
   require(igraph)
   require(scater)
 
-  # to-do: check various things and error if not:
+  # check various things and error if not:
 
   # the columns of each assay_list (cells) should all have different names
+  stopifnot("columns of each assay_list (cells) should all have different names"=
+              !any(duplicated(unlist(lapply(assay_list, colnames)))))
 
   # each of the assays should have rownames and colnames defined
+  stopifnot("each assay in assay_list must have colnames specified"=
+              all(unlist(lapply(assay_list, function(x) !is.null(colnames(x))))))
+
+  stopifnot("each assay in assay_list must have rownames specified"=
+              all(unlist(lapply(assay_list, function(x) !is.null(rownames(x))))))
 
   # assay_list should have names
+  stopifnot("each assay in assay_list must be named"=
+              !is.null(names(assay_list)) & !any(names(assay_list) == ""))
+
+  # and the assay_list names should be unique
+  stopifnot("each assay in assay_list must have a unique name"=
+              !any(duplicated(names(assay_list))))
+
+  # remove features with zero variance
+  assay_list <- lapply(assay_list, function(x){
+    x[rowVars(x) > 0,]
+  })
 
   # if labels_list given the entries should match the ncol(assay_list)
-
+  # to-do
 
   ## remove messages from calculatePCA
   if (suppressMessages) {
@@ -111,7 +129,7 @@ stabMap = function(assay_list,
   ## check whether the network is a connected component
   ## the number of components should be 1:
   if (components(assay_network)$no != 1) {
-    stop("feature network is not connected, features must overlap in some way")
+    stop("feature network is not connected, features must overlap in some way via rownames")
   }
 
   ## if needed, scale the data
@@ -121,7 +139,6 @@ stabMap = function(assay_list,
       function(x) t(scale(t(x), center = scale.center, scale = scale.scale))
     )
   }
-
 
   all_embeddings_list = list()
 
@@ -133,6 +150,7 @@ stabMap = function(assay_list,
     message(paste0("treating \"", reference_dataset, "\" as reference"))
 
     ## when the graph has a weight, then by default it will use them
+    # shortest path is weighted by the number of shared features
     to_nodes = names(sort(distances(assay_network, to = reference_dataset)[,reference_dataset]))
     all_paths = lapply(all_shortest_paths(assay_network,
                                           from = reference_dataset)$res, names)
@@ -146,12 +164,12 @@ stabMap = function(assay_list,
 
       if (projectionType %in% "PC") {
 
-          reference_scores = sm(calculatePCA(assay_list[[reference_dataset]][reference_features_list[[reference_dataset]],], ncomponents = nPC,
-                                             scale = FALSE))
-          attr(reference_scores, "loadings") <- list(attr(reference_scores, "loadings"),
-                                                     rowMeans(assay_list[[reference_dataset]]))
+        reference_scores = sm(calculatePCA(assay_list[[reference_dataset]][reference_features_list[[reference_dataset]],],
+                                           ncomponents = nPC,
+                                           scale = FALSE))
+        # attr(reference_scores, "loadings") <- list(attr(reference_scores, "rotation"),
+        #                                            rowMeans(assay_list[[reference_dataset]]))
 
-        ## if labels are given, identify the rotation of PCs that represent LDs
         d_nPC = diag(nPC)
         colnames(d_nPC) <- paste0(reference_dataset, "_", colnames(reference_scores))
 
@@ -159,6 +177,7 @@ stabMap = function(assay_list,
       }
 
       if (projectionType %in% "LD") {
+        # linear discriminants
 
         if (is.null(labels_list[[reference_dataset]])) next
 
@@ -185,7 +204,7 @@ stabMap = function(assay_list,
         ## remove features with zero variance for LDA
         vars = rowMaxs(apply(fac2sparse(labels_train), 1, function(x)
           rowWeightedVars(assay_list[[reference_dataset]][features,],x)), na.rm = TRUE)
-        if (any(vars == 0)) message("removing genes with zero intra-class variance")
+        if (any(vars == 0)) message("removing features with zero intra-class variance")
         features <- features[vars > 0]
 
         data_train = t(assay_list[[reference_dataset]][features,])
@@ -213,7 +232,7 @@ stabMap = function(assay_list,
                        "\": ",
                        paste0(rev(paste0("\"", path, "\"")), collapse = " -> ")))
 
-        if (identical(path, reference_dataset)) {
+        if (identical(as.character(path), reference_dataset)) {
           embedding_list[[reference_dataset]] <- reference_scores %projpred% P_0
           next
         }
@@ -230,6 +249,10 @@ stabMap = function(assay_list,
           features_current = Reduce(intersect, lapply(assay_list[path_current[1:2]], rownames))
           if (path_current[1] == reference_dataset) {
             current_scores = as.matrix(reference_scores)
+            # edit by shila to replace by intersecting among the loadings features when nearest the reference
+            if (projectionType == "PC") {
+              features_current = intersect(rownames(attr(reference_scores, "rotation")), rownames(assay_list[[path_current[2]]]))
+            }
           } else {
             current_obj = obj[[length(obj)]]
             if (is.list(current_obj)) current_obj <- current_obj[[1]]
@@ -241,7 +264,8 @@ stabMap = function(assay_list,
             nPC_sub = min(ncomponentsSubset, length(features_current))
 
             dimred_current = sm(calculatePCA(assay_list[[path_current[1]]][features_current,],
-                                             ncomponents = nPC_sub, scale = FALSE))
+                                             ncomponents = nPC_sub,
+                                             scale = FALSE))
             attr(dimred_current, "rotation") <- list(attr(dimred_current, "rotation"),
                                                      rowMeans(assay_list[[path_current[1]]][features_current,]))
             loadings_current = attr(dimred_current, "rotation")

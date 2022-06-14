@@ -20,7 +20,7 @@ discriminant (LD) embedding."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -29,7 +29,7 @@ discriminant (LD) embedding."><!-- mathjax --><script src="https://cdnjs.cloudfl
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -77,8 +77,8 @@ discriminant (LD) embedding.</p>
   projectAll <span class="op">=</span> <span class="cn">FALSE</span>,
   maxFeatures <span class="op">=</span> <span class="fl">1000</span>,
   plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  scale.center <span class="op">=</span> <span class="cn">FALSE</span>,
-  scale.scale <span class="op">=</span> <span class="cn">FALSE</span>
+  scale.center <span class="op">=</span> <span class="cn">TRUE</span>,
+  scale.scale <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -163,9 +163,13 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 <span class="r-in">              ncomponentsReference <span class="op">=</span> <span class="fl">20</span>,</span>
 <span class="r-in">              ncomponentsSubset <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: scater</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘scater’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: SingleCellExperiment</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘SingleCellExperiment’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: SummarizedExperiment</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘SummarizedExperiment’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: MatrixGenerics</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘MatrixGenerics’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: matrixStats</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘MatrixGenerics’</span>
@@ -187,16 +191,12 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     rowWeightedSds, rowWeightedVars</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: GenomicRanges</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘GenomicRanges’ was built under R version 4.1.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: stats4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: BiocGenerics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: parallel</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘BiocGenerics’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘BiocGenerics’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:parallel’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     clusterExport, clusterMap, parApply, parCapply, parLapply,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     parLapplyLB, parRapply, parSapply, parSapplyLB</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:igraph’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     normalize, path, union</span>
@@ -212,14 +212,18 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table,</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     tapply, union, unique, unsplit, which.max, which.min</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: S4Vectors</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘S4Vectors’ was built under R version 4.1.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘S4Vectors’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     I, expand.grid, unname</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: IRanges</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘IRanges’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: GenomeInfoDb</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘GenomeInfoDb’ was built under R version 4.1.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Biobase</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘Biobase’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Welcome to Bioconductor</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     Vignettes contain introductory material; view with</span>
@@ -234,12 +238,15 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     anyMissing, rowMedians</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: scuttle</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘scuttle’ was built under R version 4.1.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: ggplot2</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘ggplot2’ was built under R version 4.1.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> treating "D1" as reference</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D1": "D1"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D1": "D2" -&gt; "D1"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> generating embedding for path with reference "D1": "D3" -&gt; "D2" -&gt; "D1"</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: MASS</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package ‘MASS’ was built under R version 4.1.2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> labels provided for "D1", adding LD components</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Matrix</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -257,62 +264,62 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 <span class="r-plt img"><img src="StabMap-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               D1_PC1     D1_PC2     D1_PC3     D1_PC4   D1_PC5   D1_PC6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  0.1130299 -0.4237168  -4.983254  6.7676550 4.557492 2.480711</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  3.7662610 -7.7689122  -8.948294  4.5962122 4.047883 3.302885</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  0.8234620 -4.7241933  -5.951061  0.9428462 5.435320 3.019348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  4.4394808 -5.3224793 -10.787400  4.7305427 2.040046 6.169910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -3.7556350 -3.3088530 -10.363144 -0.3390572 5.494887 5.838848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -3.9925563 -7.9899529 -12.240658  1.6251742 1.354949 3.137868</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              D1_PC7     D1_PC8     D1_PC9   D1_PC10   D1_PC11    D1_PC12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  1.542227  0.6100144 -3.8596055 1.3291598 -1.531653  0.8861968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  2.981276 -0.8742083 -2.2036395 0.2022998 -2.925663  5.8348439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  3.303017  1.7313651 -3.7397442 3.1011272 -5.037775 -2.8460173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  5.999789  5.4740977  0.6165034 2.4004839 -4.325210 -2.0234336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  4.944579 -2.5812136 -3.5483682 2.4416416 -5.413541  0.1683383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -1.034117  0.8563564 -5.3951797 0.2543599 -4.871092 -0.4663159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             D1_PC13    D1_PC14    D1_PC15  D1_PC16  D1_PC17    D1_PC18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1 -4.522781  0.6735386  -5.604512 6.911952 4.514726  2.9303006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -7.700287 -1.2472471  -7.870653 2.275315 5.462010 -1.1421533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -6.566528  8.1783073  -7.680066 4.558722 5.853204 -0.6489365</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -4.052911 -0.6678592 -11.800142 3.928828 5.302675  2.4148318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -8.502406  2.5580750 -10.384051 6.344528 6.700335  0.1848367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -9.158109  5.4106626 -11.283079 4.479534 5.644375  2.5037949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              D1_PC19   D1_PC20    D1_LD1     D1_LD2    D1_LD3     D1_LD4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  0.4635674  8.001767 -5.430367 -4.1482358 0.7974137  0.7849567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  2.9242974  6.794226 -3.765156 -1.6804436 3.0521097  1.7756239</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -0.4667221  5.034700 -6.491295 -0.8742436 1.0005319  0.8273492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  0.4913706  8.377596 -3.845366 -3.8103378 1.9147695  1.2716731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  2.7738169  5.229268 -6.926646 -3.6657964 1.8009634  1.4292008</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -1.4029960 10.386406 -4.889729 -3.7355396 2.6793902 -0.1694411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                D3_PC1      D3_PC2    D3_PC3     D3_PC4    D3_PC5     D3_PC6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  -0.6161511   7.9551148  3.053835  -3.369030 -4.607848  0.4243979</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2   9.4659770   8.4971270 -1.904069  17.587120 -4.209266 -6.4207451</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  -4.5524879 -10.8492608  5.316002 -19.519054  4.678465  9.4292508</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -10.4231088 -19.4503682 -2.466673  -4.535694  1.204003 12.3181907</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  -3.6368826   1.6264600  2.493702 -13.054189 -2.012403 -2.8543389</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6   1.5148521   0.7938931 13.245710   9.211535  1.844143  0.1061067</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               D3_PC7     D3_PC8     D3_PC9    D3_PC10   D3_PC11     D3_PC12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  1.5160350 -6.0790136   3.079073   2.805809 -1.659905  -2.6944851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -0.6844080  3.2155154  15.362604   7.365798  2.811594   6.6024262</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  0.5324841 -5.3661136 -12.456614 -13.095318 -6.073771  -6.9827175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  4.8842271 -5.9707951  -8.659892  -4.661078  2.802640 -17.0288518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -1.3661162 -0.6088266 -13.853967  -2.465597 -9.939070   0.7762544</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  1.0246704 -5.7400665  13.991372   4.946892  3.110825  -3.5679690</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               D3_PC13    D3_PC14   D3_PC15    D3_PC16     D3_PC17   D3_PC18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  -2.9554793   1.373198 -3.605213  2.5334505   2.2700893 -7.383820</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2   0.4199208  -5.365645  9.558753  8.3679353 -12.9728625  4.348403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  -3.0873959   5.527710 -9.004816 -5.5619780  16.9503241 -6.615761</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4   8.3432665  -0.114276 -4.296752 -3.9927642  -4.5570129 -5.025439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -10.1620637   6.776354 -7.096729  0.7853822  16.6746238 -5.548817</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  11.0352645 -10.205221  4.359085  2.8537532   0.6053477  1.977530</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               D3_PC19    D3_PC20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1 -2.64070905  0.5953197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  7.50570954  8.2029986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -9.50835459 -9.9427419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  0.04730415  2.5466848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -7.07037429 -8.5821051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  5.92005732  4.8295510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               D1_PC1     D1_PC2     D1_PC3       D1_PC4      D1_PC5     D1_PC6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  2.6270969  3.1709928  4.0506445 -3.609130459 -1.43056606  2.5013943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -4.5057485 -0.5752083  0.8340238 -1.014823114 -0.63151929  1.4937527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  0.6226309  1.5472376  2.6103086 -0.018643114  2.81536539  1.0940201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -4.2263350  2.0444978 -0.5356968 -3.453648014 -2.92566847 -0.2716939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  3.8947019 -0.9106738 -3.6039996  0.004893567  2.30739074  0.3341585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  2.0177813 -3.5252245 -4.1753395 -1.148906355 -0.05251646 -1.8700432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                D1_PC7     D1_PC8     D1_PC9    D1_PC10    D1_PC11    D1_PC12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1 -0.24764751  0.5873167 -2.3067376  3.2015090 -0.4526165 -1.2460048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -0.25444661 -0.7616007 -2.4968763  0.1378678  2.8105718  4.8446448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  0.03710635  1.5760269 -0.3924504  1.1906449 -3.6871124 -3.7681881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -1.69233366  0.7617611  4.8401743 -2.0105921 -1.1875114 -1.5079628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -4.31581421  0.9061911 -0.9850855  1.2802993 -1.6064210  0.3283823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  3.75335901 -0.4612008 -2.3790983  1.2309207 -2.1421033 -0.9491438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              D1_PC13   D1_PC14   D1_PC15     D1_PC16    D1_PC17    D1_PC18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  3.1375299 -4.378068 -3.444451 -1.78898621 -2.2372443  0.7444908</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  0.7939143 -2.721340 -0.377106 -0.09414872  1.4999731 -4.7338701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -0.4814744  3.724470 -1.594450 -1.49311501  1.9097362 -1.1429568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  3.0741564 -1.146310  1.966764  2.49615083 -1.8948504 -0.2249584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  0.2501072  1.337008  1.229278 -2.45020979  0.6301791 -1.0275208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -1.9202294  1.207617  2.005668 -0.81970304 -1.8491049  0.7083563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              D1_PC19    D1_PC20     D1_LD1    D1_LD2     D1_LD3      D1_LD4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1 -1.2420356 -2.6537241 -0.3927678 -1.674139 -1.1392196  0.01773841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -1.5838926 -0.7553307  1.2724435  0.793653  1.1154764  1.00840563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  2.0095487 -1.4511702 -1.4536953  1.599853 -0.9361014  0.06013095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  0.2146626  1.1997077  1.1922330 -1.336241 -0.0218638  0.50445480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -2.5546764 -2.1599807 -1.8890462 -1.191700 -0.1356699  0.66198248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  1.4360245 -0.1285014  0.1478705 -1.261443  0.7427569 -0.93665942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               D3_PC1     D3_PC2     D3_PC3     D3_PC4     D3_PC5    D3_PC6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1   5.092261  8.2508095   3.425652  0.4690347   1.364696 -2.321035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  12.595954  0.2080145 -14.737667  6.5019653   2.625458 -5.032633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -11.306183 -1.9951360  19.052222 -7.5799141  -4.386633  7.594893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -23.365322 -2.8256679   6.699823 -3.8222231 -12.100091  2.068094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  -3.486373  1.6333765  12.325701 -6.0603755   6.831653  1.613624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  -4.529260  2.8107633   5.415550 12.4524329  -4.605054  3.963515</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               D3_PC7     D3_PC8    D3_PC9    D3_PC10    D3_PC11    D3_PC12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  3.8764340  4.0883439  2.428021 -0.7772289  -2.710610 -2.2746468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2  3.6140777  6.0370403 -9.409367 -7.6498222   7.823002 -0.9906758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3 -2.5210342 -4.6332347  9.397575 12.0328986 -10.564131  2.8742841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -0.1166194  0.9251444 12.568800  9.0282004  -1.519511 -0.4224119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5 -7.9823773 -5.9523524  9.895687  3.1960450 -12.193279  0.4332627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  9.7299558  3.6624210 -2.562558 -2.4382349   2.061842  3.2577990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              D3_PC13    D3_PC14    D3_PC15     D3_PC16    D3_PC17   D3_PC18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  0.8287263  -2.576192  -1.231400  -2.2388540  -1.976509  5.664110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -6.5423054   7.724876   4.553024  14.3713652   8.397916 -2.623389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  7.2103276 -13.081510  -4.107556 -17.0461773 -10.751769  1.107053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4  9.1727966   3.286651 -11.690377  -4.8886036   6.230477  2.364460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  1.9820477 -14.167346   1.655577  -9.5230822 -12.926575  2.182262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6  3.3057180  14.400471  -8.922536   0.4140916  -4.918429 -2.660315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              D3_PC19    D3_PC20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_1  1.6945880   2.072783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_2 -4.6158786   2.636875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_3  7.0317033  -5.098531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_4 -0.6198571  14.316522</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_5  7.6733032 -10.683882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> D1_cell_6 -2.0122076   5.141252</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -328,7 +335,8 @@ and columns corresponding to PCs or LDs for reference dataset(s).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>
