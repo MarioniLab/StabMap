@@ -38,6 +38,16 @@ mosaicDataTopology = function(assay_list) {
   g = graph.edgelist(pairs_overlapping, directed = FALSE)
   E(g)$weight <- edge_weights_overlapping
 
+  g = graph.edgelist(pairs_overlapping, directed = FALSE)
+  sd = setdiff(datasets, V(g)$name)
+  if (length(sd) > 0) {
+    g <- add_vertices(g, length(sd), name = sd)
+  }
+
+  if (components(g)$no != 1) {
+    message("feature network is not connected, features must overlap via rownames for StabMap to run")
+  }
+
   # add some aesthetic attributes to the network
   V(g)$frame.color = "white"
   V(g)$color = "white"
