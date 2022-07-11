@@ -19,6 +19,10 @@
 #' @param suppressMessages Logical whether to suppress messages (default TRUE).
 #' @param projectAll Logical whether to re-project reference data along with
 #' query (default FALSE).
+#' @param restrictFeatures logical whether to restrict to features used in
+#' dimensionality reduction of reference data (default FALSE). Overall it's
+#' recommended that this be FALSE for single-hop integrations and TRUE for
+#' multi-hop integrations.
 #' @param maxFeatures Maximum number of features to consider for predicting
 #' principal component scores (default 1000).
 #' @param plot Logical whether to plot mosaic data UpSet plot and mosaic data
@@ -67,6 +71,7 @@ stabMap = function(assay_list,
                    ncomponentsSubset = 50,
                    suppressMessages = TRUE,
                    projectAll = FALSE,
+                   restrictFeatures = FALSE,
                    maxFeatures = 1000,
                    plot = TRUE,
                    scale.center = TRUE,
@@ -250,7 +255,7 @@ stabMap = function(assay_list,
           if (path_current[1] == reference_dataset) {
             current_scores = as.matrix(reference_scores)
             # edit by shila to replace by intersecting among the loadings features when nearest the reference
-            if (projectionType == "PC") {
+            if (projectionType == "PC" & restrictFeatures) {
               features_current = intersect(rownames(attr(reference_scores, "rotation")), rownames(assay_list[[path_current[2]]]))
             }
           } else {

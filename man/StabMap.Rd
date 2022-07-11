@@ -13,6 +13,7 @@ stabMap(
   ncomponentsSubset = 50,
   suppressMessages = TRUE,
   projectAll = FALSE,
+  restrictFeatures = FALSE,
   maxFeatures = 1000,
   plot = TRUE,
   scale.center = TRUE,
@@ -41,6 +42,11 @@ data prior to projecting to the reference.}
 
 \item{projectAll}{Logical whether to re-project reference data along with
 query (default FALSE).}
+
+\item{restrictFeatures}{logical whether to restrict to features used in
+dimensionality reduction of reference data (default FALSE). Overall it's
+recommended that this be FALSE for single-hop integrations and TRUE for
+multi-hop integrations.}
 
 \item{maxFeatures}{Maximum number of features to consider for predicting
 principal component scores (default 1000).}
