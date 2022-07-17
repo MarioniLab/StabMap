@@ -169,11 +169,17 @@ stabMap = function(assay_list,
 
       if (projectionType %in% "PC") {
 
-        reference_scores = sm(calculatePCA(assay_list[[reference_dataset]][reference_features_list[[reference_dataset]],],
-                                           ncomponents = nPC,
-                                           scale = FALSE))
-        # attr(reference_scores, "loadings") <- list(attr(reference_scores, "rotation"),
-        #                                            rowMeans(assay_list[[reference_dataset]]))
+        reference_scores_raw = sm(calculatePCA(assay_list[[reference_dataset]][reference_features_list[[reference_dataset]],],
+                                               ncomponents = nPC,
+                                               scale = FALSE))
+
+        attr(reference_scores_raw, "rotation") <- list(attr(reference_scores_raw, "rotation"),
+                                                   setNames(rep(0,nrow(attr(reference_scores_raw, "rotation"))),
+                                                            rownames(attr(reference_scores_raw, "rotation"))))
+
+        loadings_reference = attr(reference_scores_raw, "rotation")
+
+        reference_scores = as.matrix(t(assay_list[[reference_dataset]])) %*1% loadings_reference
 
         d_nPC = diag(nPC)
         colnames(d_nPC) <- paste0(reference_dataset, "_", colnames(reference_scores))
@@ -256,7 +262,7 @@ stabMap = function(assay_list,
             current_scores = as.matrix(reference_scores)
             # edit by shila to replace by intersecting among the loadings features when nearest the reference
             if (projectionType == "PC" & restrictFeatures) {
-              features_current = intersect(rownames(attr(reference_scores, "rotation")), rownames(assay_list[[path_current[2]]]))
+              features_current = intersect(rownames(loadings_reference), rownames(assay_list[[path_current[2]]]))
             }
           } else {
             current_obj = obj[[length(obj)]]
