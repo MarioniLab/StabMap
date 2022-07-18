@@ -262,7 +262,11 @@ stabMap = function(assay_list,
             current_scores = as.matrix(reference_scores)
             # edit by shila to replace by intersecting among the loadings features when nearest the reference
             if (projectionType == "PC" & restrictFeatures) {
-              features_current = intersect(rownames(loadings_reference), rownames(assay_list[[path_current[2]]]))
+              features_current = intersect(rownames(loadings_reference[[1]]), rownames(assay_list[[path_current[2]]]))
+              if (length(features_current) == 0) {
+                message("No common features when using restrictFeatures, switching to intersection")
+                features_current = Reduce(intersect, lapply(assay_list[path_current[1:2]], rownames))
+              }
             }
           } else {
             current_obj = obj[[length(obj)]]
