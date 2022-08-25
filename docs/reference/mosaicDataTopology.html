@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
       </span>
     </div>
 
@@ -60,17 +60,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mosaicDataTopology</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mosaicDataTopology</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>assay_list</dt>
 <dd><p>a list of data matrices with rownames (features) specified.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>igraph weighted network with nodes corresponding to
+    
+
+<p>igraph weighted network with nodes corresponding to
 <code>assay_list</code> elements, and edges present if the matrices share at
 least one rowname. Edge weights correspond to the number of shared
 rownames among data matrices.</p>
@@ -78,18 +81,18 @@ rownames among data matrices.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">assay_list</span> <span class="op">=</span> <span class="fu"><a href="mockMosaicData.html">mockMosaicData</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mdt</span> <span class="op">=</span> <span class="fu">mosaicDataTopology</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mdt</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH cdd34a2 UNW- 3 2 -- </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">assay_list</span> <span class="op">=</span> <span class="fu"><a href="mockMosaicData.html">mockMosaicData</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mdt</span> <span class="op">=</span> <span class="fu">mosaicDataTopology</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mdt</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 6011c78 UN-- 3 2 -- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), frame.color (v/c), color (v/c), label.color (v/c),</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> | label.family (v/c), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from cdd34a2 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> | label.family (v/c)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 6011c78 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] D1--D2 D2--D3</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mosaicDataTopology-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -104,8 +107,7 @@ rownames among data matrices.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

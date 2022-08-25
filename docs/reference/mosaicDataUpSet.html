@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
       </span>
     </div>
 
@@ -60,30 +60,37 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>assay_list</dt>
 <dd><p>a list of data matrices with rownames (features) specified.</p></dd>
+
+
 <dt>plot</dt>
 <dd><p>logical (default FALSE) whether the UpSet plot should be printed.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments passed to `upset` from the `UpSetR` package.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>UpSet object displaying degree of overlap of rownames (features)
+    
+
+<p>UpSet object displaying degree of overlap of rownames (features)
 among each of the data matrices in <code>assay_list</code>. Set bars correspond to
 the number of cells/samples present in each data matrix.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">assay_list</span> <span class="op">=</span> <span class="fu"><a href="mockMosaicData.html">mockMosaicData</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">assay_list</span>, <span class="va">dim</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">assay_list</span> <span class="op">=</span> <span class="fu"><a href="mockMosaicData.html">mockMosaicData</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">assay_list</span>, <span class="va">dim</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $D1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 150  50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -93,13 +100,13 @@ the number of cells/samples present in each data matrix.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $D3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 150  50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mosaicDataUpSet-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># additional arguments from UpSetR::upset()</span></span>
-<span class="r-in"><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span>, empty.intersections <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># additional arguments from UpSetR::upset()</span></span></span>
+<span class="r-in"><span><span class="fu">mosaicDataUpSet</span><span class="op">(</span><span class="va">assay_list</span>, empty.intersections <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mosaicDataUpSet-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -114,8 +121,7 @@ the number of cells/samples present in each data matrix.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -13,9 +13,11 @@
 #' @param reference_features_list List of features to consider as reference data
 #' (default is all available features).
 #' @param ncomponentsReference Number of principal components for embedding
-#' reference data.
+#' reference data, given either as an integer or a named list for each
+#' reference dataset.
 #' @param ncomponentsSubset Number of principal components for embedding query
-#' data prior to projecting to the reference.
+#' data prior to projecting to the reference, given either as an integer or a
+#' named list for each reference dataset.
 #' @param suppressMessages Logical whether to suppress messages (default TRUE).
 #' @param projectAll Logical whether to re-project reference data along with
 #' query (default FALSE).
@@ -126,6 +128,18 @@ stabMap = function(assay_list,
     reference_list <- sapply(names(assay_list), function(x) x %in% reference_list, simplify = FALSE)
   }
 
+  # if ncomponentsReference given as integer convert to a list
+  if (is.numeric(ncomponentsReference)) {
+    ncomponentsReference <- as.list(rep(ncomponentsReference, length(reference_list)))
+    names(ncomponentsReference) <- names(reference_list)
+  }
+
+  # if ncomponentsSubset given as integer convert to a list
+  if (is.numeric(ncomponentsSubset)) {
+    ncomponentsSubset <- as.list(rep(ncomponentsSubset, length(reference_list)))
+    names(ncomponentsSubset) <- names(reference_list)
+  }
+
   if (plot) mosaicDataUpSet(assay_list)
 
   assay_network = mosaicDataTopology(assay_list)
@@ -163,7 +177,7 @@ stabMap = function(assay_list,
     all_paths <- all_paths[to_nodes]
 
     ## the PC space of the reference dataset
-    nPC = min(ncomponentsReference, nrow(assay_list[[reference_dataset]]))
+    nPC = min(ncomponentsReference[[reference_dataset]], nrow(assay_list[[reference_dataset]]))
 
     for (projectionType in c("PC", "LD")) {
 
@@ -276,7 +290,7 @@ stabMap = function(assay_list,
           }
 
           if (length(path_current) > 2) {
-            nPC_sub = min(ncomponentsSubset, length(features_current))
+            nPC_sub = min(ncomponentsSubset[[reference_dataset]], length(features_current))
 
             dimred_current = sm(calculatePCA(assay_list[[path_current[1]]][features_current,],
                                              ncomponents = nPC_sub,

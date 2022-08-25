@@ -19,7 +19,7 @@ devtools::install_github("MarioniLab/StabMap")
 
 ## Vignette
 
-You can find the vignette at this [website](https://marionilab.github.io/StabMap/).
+You can find the vignette showing how StabMap can be used with PBMC single cell data at this [website](https://marionilab.github.io/StabMap/articles/stabMap_PBMC_Multiome.html).
 
 ## Contact
 

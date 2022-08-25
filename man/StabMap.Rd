@@ -33,10 +33,12 @@ character vector containing the names of the reference data matrices.}
 (default is all available features).}
 
 \item{ncomponentsReference}{Number of principal components for embedding
-reference data.}
+reference data, given either as an integer or a named list for each
+reference dataset.}
 
 \item{ncomponentsSubset}{Number of principal components for embedding query
-data prior to projecting to the reference.}
+data prior to projecting to the reference, given either as an integer or a
+named list for each reference dataset.}
 
 \item{suppressMessages}{Logical whether to suppress messages (default TRUE).}
 
