@@ -2,7 +2,7 @@
 % Please edit documentation in R/stabMap.R
 \name{stabMap}
 \alias{stabMap}
-\title{Mosaic single cell data integration using non-overlapping features}
+\title{Stabilised mosaic single cell data integration using unshared features}
 \usage{
 stabMap(
   assay_list,

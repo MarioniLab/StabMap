@@ -1,5 +1,5 @@
 ---
-title: "StabMap: Mosaic single cell data integration using non-overlapping features"
+title: "StabMap: Stabilised mosaic single cell data integration using unshared features"
 author:
   - Shila Ghazanfar
 output:
@@ -39,7 +39,7 @@ In this vignette we will elaborate on how these steps are implemented in the
 
 # Load data
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 mae <- scMultiome("pbmc_10x", mode = "*", dry.run = FALSE, format = "MTX")
 ```
 
@@ -193,7 +193,7 @@ lapply(imp, dim)
 imp[["Multiome"]][1:5,1:5]
 ```
 
-# Disjoint mosaic data integration with StabMap
+# Indirect mosaic data integration with StabMap
 
 StabMap is a flexible framework for mosaic data integration, and can still 
 integrate data even when there are pairs of datasets that share no features at 
@@ -203,19 +203,19 @@ paths contain information), then we can extract meaningful joint embeddings. To
 demonstrate this, we will simulate three data sources.
 
 ```{r}
-dataTypeDisjoint = setNames(sample(c("RNA", "Multiome", "ATAC"), ncol(logcounts_all),
+dataTypeIndirect = setNames(sample(c("RNA", "Multiome", "ATAC"), ncol(logcounts_all),
                                    prob = c(0.3,0.3, 0.3), replace = TRUE),
                             colnames(logcounts_all))
-table(dataTypeDisjoint)
+table(dataTypeIndirect)
 
-assay_list_disjoint = list(
-  RNA = logcounts_all[assayType %in% c("rna"), dataTypeDisjoint %in% c("RNA")],
-  Multiome = logcounts_all[assayType %in% c("rna", "atac"), dataTypeDisjoint %in% c("Multiome")],
-  ATAC = logcounts_all[assayType %in% c("atac"), dataTypeDisjoint %in% c("ATAC")]
+assay_list_indirect = list(
+  RNA = logcounts_all[assayType %in% c("rna"), dataTypeIndirect %in% c("RNA")],
+  Multiome = logcounts_all[assayType %in% c("rna", "atac"), dataTypeIndirect %in% c("Multiome")],
+  ATAC = logcounts_all[assayType %in% c("atac"), dataTypeIndirect %in% c("ATAC")]
 )
 
-lapply(assay_list_disjoint, dim)
-lapply(assay_list_disjoint, class)
+lapply(assay_list_indirect, dim)
+lapply(assay_list_indirect, class)
 ```
 
 Using `mosaicDataUpSet()`, we note that there are no shared features between 
@@ -226,16 +226,16 @@ positive gene expression for that gene. However, we need not make this
 assumption for the data integration to be performed.
 
 ```{r}
-mosaicDataUpSet(assay_list_disjoint, plot = FALSE)
+mosaicDataUpSet(assay_list_indirect, plot = FALSE)
 ```
 
 We can understand the `mosaicDataTopology()` of these datasets, which
 generates an `igraph` object, which can be inspected and plotted.
 
 ```{r}
-mdt_disjoint = mosaicDataTopology(assay_list_disjoint)
-mdt_disjoint
-plot(mdt_disjoint)
+mdt_indirect = mosaicDataTopology(assay_list_indirect)
+mdt_indirect
+plot(mdt_indirect)
 ```
 
 StabMap only requires that the mosaic data topology network be connected,
@@ -248,21 +248,21 @@ dataset. Since we already examined the mosaic data topology, we set
 `plot = FALSE`.
 
 ```{r}
-stab_disjoint = stabMap(assay_list_disjoint,
+stab_indirect = stabMap(assay_list_indirect,
                         reference_list = c("Multiome"),
                         plot = FALSE)
-dim(stab_disjoint)
-stab_disjoint[1:5,1:5]
+dim(stab_indirect)
+stab_indirect[1:5,1:5]
 ```
 
 We can reduce the dimension further using non-linear approaches such as UMAP.
 
 ```{r}
-stab_disjoint_umap = calculateUMAP(t(stab_disjoint))
-dim(stab_disjoint_umap)
+stab_indirect_umap = calculateUMAP(t(stab_indirect))
+dim(stab_indirect_umap)
 
-plot(stab_disjoint_umap, pch = 16, cex = 0.3,
-     col = factor(dataTypeDisjoint[rownames(stab_disjoint)]))
+plot(stab_indirect_umap, pch = 16, cex = 0.3,
+     col = factor(dataTypeIndirect[rownames(stab_indirect)]))
 ```
 
 Here we see that the RNA, ATAC and Multiome cells are fairly well-mixed.
@@ -273,8 +273,8 @@ mosaic data integration is meaningful.
 ```{r}
 cellType = setNames(mae$celltype, colnames(mae[[1]]))
 
-plot(stab_disjoint_umap, pch = 16, cex = 0.3,
-     col = factor(cellType[rownames(stab_disjoint)]))
+plot(stab_indirect_umap, pch = 16, cex = 0.3,
+     col = factor(cellType[rownames(stab_indirect)]))
 ```
 
 <details>

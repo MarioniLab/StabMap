@@ -1,4 +1,4 @@
-#' Mosaic single cell data integration using non-overlapping features
+#' Stabilised mosaic single cell data integration using unshared features
 #'
 #' stabMap performs mosaic data integration by first building a mosaic data
 #' topology, and for each reference dataset, traverses the topology to

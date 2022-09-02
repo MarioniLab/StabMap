@@ -1,4 +1,4 @@
-# StabMap: Mosaic single cell data integration using non-overlapping features
+# StabMap: Stabilised mosaic single cell data integration using unshared features
 <img src="man/figures/hex.png" align="right"  height="250" width="250"/>
 
 ## Installation
@@ -23,4 +23,4 @@ You can find the vignette showing how StabMap can be used with PBMC single cell 
 
 ## Contact
 
-shila.ghazanfar \<at\> cruk.cam.ac.uk or marioni \<at\> ebi.ac.uk
+shila.ghazanfar \<at\> cruk.cam.ac.uk, shila.ghazanfar \<at\> sydney.edu.au or marioni \<at\> ebi.ac.uk
