@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.8</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ in the <code>StabMap</code> package.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="http://waldronlab.io/MultiAssayExperiment/reference/upsetSamples.html" class="external-link">upsetSamples</a></span><span class="op">(</span><span class="va">mae</span><span class="op">)</span></span></code></pre></div>
 <p><img src="stabMap_PBMC_Multiome_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">mae</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">mae</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DataFrame with 6 rows and 6 columns</span></span>
 <span><span class="co">##                  nCount_RNA nFeature_RNA nCount_ATAC nFeature_ATAC</span></span>
 <span><span class="co">##                   &lt;integer&gt;    &lt;integer&gt;   &lt;integer&gt;     &lt;integer&gt;</span></span>
@@ -252,10 +252,10 @@ inspected and plotted.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mdt</span> <span class="op">=</span> <span class="fu"><a href="../reference/mosaicDataTopology.html">mosaicDataTopology</a></span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span>
 <span><span class="va">mdt</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH 9f43e6d UN-- 2 1 -- </span></span>
+<pre><code><span><span class="co">## IGRAPH 073624a UN-- 2 1 -- </span></span>
 <span><span class="co">## + attr: name (v/c), frame.color (v/c), color (v/c), label.color (v/c),</span></span>
 <span><span class="co">## | label.family (v/c)</span></span>
-<span><span class="co">## + edge from 9f43e6d (vertex names):</span></span>
+<span><span class="co">## + edge from 073624a (vertex names):</span></span>
 <span><span class="co">## [1] RNA--Multiome</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt</span><span class="op">)</span></span></code></pre></div>
@@ -420,10 +420,10 @@ inspected and plotted.</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mdt_indirect</span> <span class="op">=</span> <span class="fu"><a href="../reference/mosaicDataTopology.html">mosaicDataTopology</a></span><span class="op">(</span><span class="va">assay_list_indirect</span><span class="op">)</span></span>
 <span><span class="va">mdt_indirect</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH 08ebd0c UN-- 3 2 -- </span></span>
+<pre><code><span><span class="co">## IGRAPH 4f4fa5d UN-- 3 2 -- </span></span>
 <span><span class="co">## + attr: name (v/c), frame.color (v/c), color (v/c), label.color (v/c),</span></span>
 <span><span class="co">## | label.family (v/c)</span></span>
-<span><span class="co">## + edges from 08ebd0c (vertex names):</span></span>
+<span><span class="co">## + edges from 4f4fa5d (vertex names):</span></span>
 <span><span class="co">## [1] RNA     --Multiome Multiome--ATAC</span></span></code></pre>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt_indirect</span><span class="op">)</span></span></code></pre></div>
@@ -510,7 +510,7 @@ the mosaic data integration is meaningful.</p>
 <span><span class="co">## [15] GenomeInfoDb_1.32.2         IRanges_2.30.0             </span></span>
 <span><span class="co">## [17] S4Vectors_0.34.0            BiocGenerics_0.42.0        </span></span>
 <span><span class="co">## [19] MatrixGenerics_1.8.1        matrixStats_0.62.0         </span></span>
-<span><span class="co">## [21] StabMap_0.1.7               igraph_1.3.4               </span></span>
+<span><span class="co">## [21] StabMap_0.1.8               igraph_1.3.4               </span></span>
 <span><span class="co">## [23] BiocStyle_2.24.0           </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>

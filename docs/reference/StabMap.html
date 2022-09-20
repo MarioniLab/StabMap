@@ -20,7 +20,7 @@ discriminant (LD) embedding."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.8</span>
       </span>
     </div>
 
@@ -71,6 +71,7 @@ discriminant (LD) embedding.</p>
 <span>  labels_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  reference_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="cn">TRUE</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  reference_features_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">assay_list</span>, <span class="va">rownames</span><span class="op">)</span>,</span>
+<span>  reference_scores_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ncomponentsReference <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  ncomponentsSubset <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  suppressMessages <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -102,6 +103,13 @@ character vector containing the names of the reference data matrices.</p></dd>
 <dt>reference_features_list</dt>
 <dd><p>List of features to consider as reference data
 (default is all available features).</p></dd>
+
+
+<dt>reference_scores_list</dt>
+<dd><p>Named list of reference scores (default NULL). If
+provided, matrix of cells (rows with rownames given) and dimensions (columns
+with colnames given) are used as the reference low-dimensional embedding to
+target, as opposed to performing PCA or LDA on the input reference data.</p></dd>
 
 
 <dt>ncomponentsReference</dt>
