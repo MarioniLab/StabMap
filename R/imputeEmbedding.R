@@ -1,6 +1,6 @@
-#' Impute expression values using StabMap joint embedding
+#' Impute values using StabMap joint embedding
 #'
-#' Performs naive imputation of expression values from the list of mosaic data
+#' Performs naive imputation of values from the list of mosaic data
 #' and joint embedding from StabMap.
 #'
 #' @param assay_list List of mosaic data from which to perform imputation.
@@ -12,7 +12,7 @@
 #' @param fun function (default `mean`) to aggregate nearest neighbours'
 #' imputed values.
 #'
-#' @return List containing imputed expression values from each assay_list
+#' @return List containing imputed values from each assay_list
 #' data matrix which contains reference cells.
 #'
 #' @examples
@@ -50,8 +50,6 @@ imputeEmbedding = function(assay_list,
   # default behaviour is to output a smoothed assay_list object
 
   require(BiocNeighbors)
-  require(abind)
-  # require(slam)
 
   has_reference = lapply(assay_list, function(x) any(reference %in% colnames(x)))
 
@@ -72,16 +70,24 @@ imputeEmbedding = function(assay_list,
     }, simplify = FALSE)
 
     if (!is(imputedList[[1]], "matrix")) {
-      message("only simple (non-sparse) matrix data currently supported, converting to dense matrix")
-      imputedArray = abind(lapply(imputedList, as.matrix), along = 3)
-    } else {
-      imputedArray = abind(imputedList, along = 3)
-    }
-    # imputedArray = do.call(slam::abind_simple_sparse_array, args = list(imputedList, MARGIN = 1L))
-    # doesn't work, could use BumpyMatrix to combine?
+      require(slam)
+      require(Matrix)
+      # message("only simple (non-sparse) matrix data currently supported, converting to dense matrix")
+      # imputedArray = abind(lapply(imputedList, as.matrix), along = 3)
+      imputedArray <- as.simple_sparse_array(do.call(cbind, imputedList))
+      dim(imputedArray) <- c(dim(imputedList[[1]]), length(imputedList))
 
-    imputedMeans = apply(imputedArray, 1:2, fun)
+      imputedMeans = drop_simple_sparse_array(rollup(imputedArray, 3, NULL, fun))
+      imputedMeans = as(as(as(as(imputedMeans, "array"), "dMatrix"), "generalMatrix"), "CsparseMatrix")
+    } else {
+      require(abind)
+      imputedArray = abind(imputedList, along = 3)
+
+      imputedMeans = apply(imputedArray, 1:2, fun)
+    }
+
     colnames(imputedMeans) <- rownames(knn_out)
+    rownames(imputedMeans) <- rownames(assayMat)
 
     imputed_list[[assayName]] <- imputedMeans
   }

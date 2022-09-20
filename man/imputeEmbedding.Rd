@@ -2,7 +2,7 @@
 % Please edit documentation in R/imputeEmbedding.R
 \name{imputeEmbedding}
 \alias{imputeEmbedding}
-\title{Impute expression values using StabMap joint embedding}
+\title{Impute values using StabMap joint embedding}
 \usage{
 imputeEmbedding(
   assay_list,
@@ -29,11 +29,11 @@ relationships.}
 imputed values.}
 }
 \value{
-List containing imputed expression values from each assay_list
+List containing imputed values from each assay_list
 data matrix which contains reference cells.
 }
 \description{
-Performs naive imputation of expression values from the list of mosaic data
+Performs naive imputation of values from the list of mosaic data
 and joint embedding from StabMap.
 }
 \examples{

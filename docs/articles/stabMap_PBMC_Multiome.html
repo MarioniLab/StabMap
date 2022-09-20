@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">StabMap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.7</span>
       </span>
     </div>
 
@@ -252,10 +252,10 @@ inspected and plotted.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mdt</span> <span class="op">=</span> <span class="fu"><a href="../reference/mosaicDataTopology.html">mosaicDataTopology</a></span><span class="op">(</span><span class="va">assay_list</span><span class="op">)</span></span>
 <span><span class="va">mdt</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH 656aa8a UN-- 2 1 -- </span></span>
+<pre><code><span><span class="co">## IGRAPH 9f43e6d UN-- 2 1 -- </span></span>
 <span><span class="co">## + attr: name (v/c), frame.color (v/c), color (v/c), label.color (v/c),</span></span>
 <span><span class="co">## | label.family (v/c)</span></span>
-<span><span class="co">## + edge from 656aa8a (vertex names):</span></span>
+<span><span class="co">## + edge from 9f43e6d (vertex names):</span></span>
 <span><span class="co">## [1] RNA--Multiome</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt</span><span class="op">)</span></span></code></pre></div>
@@ -321,32 +321,38 @@ for downstream visualisation or further interpretation.</p>
 <span>  reference <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">assay_list</span><span class="op">[[</span><span class="st">"Multiome"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>  query <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">assay_list</span><span class="op">[[</span><span class="st">"RNA"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: BiocNeighbors</span></span></code></pre>
-<pre><code><span><span class="co">## Loading required package: abind</span></span></code></pre>
-<pre><code><span><span class="co">## only simple (non-sparse) matrix data currently supported, converting to dense matrix</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Loading required package: slam</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: Matrix</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'Matrix'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:S4Vectors':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     expand</span></span></code></pre>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">imp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "list"</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">imp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "Multiome"</span></span></code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">imp</span>, <span class="va">dim</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $Multiome</span></span>
 <span><span class="co">## [1] 1740 5049</span></span></code></pre>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">imp</span><span class="op">[[</span><span class="st">"Multiome"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">##        AAACAGCCAATCCCTT AAACAGCCAATGCGCT AAACAGCCAGTTTACG AAACAGCCATCCAGGT</span></span>
-<span><span class="co">## CA6           0.0000000         0.000000         0.000000                0</span></span>
-<span><span class="co">## CNR2          0.0000000         0.000000         0.000000                0</span></span>
-<span><span class="co">## IFNLR1        0.0000000         0.000000         0.000000                0</span></span>
-<span><span class="co">## RCAN3         0.8322724         1.072405         1.216695                0</span></span>
-<span><span class="co">## ZNF683        0.0000000         0.000000         0.000000                0</span></span>
+<pre><code><span><span class="co">## 5 x 5 sparse Matrix of class "dgCMatrix"</span></span>
+<span><span class="co">##        AAACAGCCAATCCCTT AAACAGCCAATGCGCT AAACAGCCAGTTTACG AAACAGCCATCCAGGT</span></span>
+<span><span class="co">## CA6            .                .                .                       .</span></span>
+<span><span class="co">## CNR2           .                .                .                       .</span></span>
+<span><span class="co">## IFNLR1         .                .                .                       .</span></span>
+<span><span class="co">## RCAN3          1.387121         1.787342         1.520869                .</span></span>
+<span><span class="co">## ZNF683         .                .                .                       .</span></span>
 <span><span class="co">##        AAACATGCAAGGTCCT</span></span>
-<span><span class="co">## CA6           0.7063732</span></span>
-<span><span class="co">## CNR2          0.0000000</span></span>
-<span><span class="co">## IFNLR1        0.0000000</span></span>
-<span><span class="co">## RCAN3         0.4404018</span></span>
-<span><span class="co">## ZNF683        0.0000000</span></span></code></pre>
+<span><span class="co">## CA6            1.177289</span></span>
+<span><span class="co">## CNR2           .       </span></span>
+<span><span class="co">## IFNLR1         .       </span></span>
+<span><span class="co">## RCAN3          1.101005</span></span>
+<span><span class="co">## ZNF683         .</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="indirect-mosaic-data-integration-with-stabmap">Indirect mosaic data integration with StabMap<a class="anchor" aria-label="anchor" href="#indirect-mosaic-data-integration-with-stabmap"></a>
@@ -358,7 +364,7 @@ along the mosaic data topology (and the underlying assumption that the
 shared features along these paths contain information), then we can
 extract meaningful joint embeddings. To demonstrate this, we will
 simulate three data sources.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dataTypeIndirect</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RNA"</span>, <span class="st">"Multiome"</span>, <span class="st">"ATAC"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">logcounts_all</span><span class="op">)</span>,</span>
 <span>                                   prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>,<span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>                            <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">logcounts_all</span><span class="op">)</span><span class="op">)</span></span>
@@ -366,7 +372,7 @@ simulate three data sources.</p>
 <pre><code><span><span class="co">## dataTypeIndirect</span></span>
 <span><span class="co">##     ATAC Multiome      RNA </span></span>
 <span><span class="co">##     3338     3359     3335</span></span></code></pre>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">assay_list_indirect</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  RNA <span class="op">=</span> <span class="va">logcounts_all</span><span class="op">[</span><span class="va">assayType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rna"</span><span class="op">)</span>, <span class="va">dataTypeIndirect</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RNA"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  Multiome <span class="op">=</span> <span class="va">logcounts_all</span><span class="op">[</span><span class="va">assayType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rna"</span>, <span class="st">"atac"</span><span class="op">)</span>, <span class="va">dataTypeIndirect</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Multiome"</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -382,7 +388,7 @@ simulate three data sources.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $ATAC</span></span>
 <span><span class="co">## [1]  788 3338</span></span></code></pre>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">assay_list_indirect</span>, <span class="va">class</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $RNA</span></span>
 <span><span class="co">## [1] "dgCMatrix"</span></span>
@@ -405,21 +411,21 @@ dogma assumption”, that is, that the peaks associated with a genomic
 position overlapping a gene should correspond to positive gene
 expression for that gene. However, we need not make this assumption for
 the data integration to be performed.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mosaicDataUpSet.html">mosaicDataUpSet</a></span><span class="op">(</span><span class="va">assay_list_indirect</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="stabMap_PBMC_Multiome_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>We can understand the <code><a href="../reference/mosaicDataTopology.html">mosaicDataTopology()</a></code> of these
 datasets, which generates an <code>igraph</code> object, which can be
 inspected and plotted.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mdt_indirect</span> <span class="op">=</span> <span class="fu"><a href="../reference/mosaicDataTopology.html">mosaicDataTopology</a></span><span class="op">(</span><span class="va">assay_list_indirect</span><span class="op">)</span></span>
 <span><span class="va">mdt_indirect</span></span></code></pre></div>
-<pre><code><span><span class="co">## IGRAPH 1438fe3 UN-- 3 2 -- </span></span>
+<pre><code><span><span class="co">## IGRAPH 08ebd0c UN-- 3 2 -- </span></span>
 <span><span class="co">## + attr: name (v/c), frame.color (v/c), color (v/c), label.color (v/c),</span></span>
 <span><span class="co">## | label.family (v/c)</span></span>
-<span><span class="co">## + edges from 1438fe3 (vertex names):</span></span>
+<span><span class="co">## + edges from 08ebd0c (vertex names):</span></span>
 <span><span class="co">## [1] RNA     --Multiome Multiome--ATAC</span></span></code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mdt_indirect</span><span class="op">)</span></span></code></pre></div>
 <p><img src="stabMap_PBMC_Multiome_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>StabMap only requires that the mosaic data topology network be
@@ -430,7 +436,7 @@ Multiome), we can proceed.</p>
 StabMap. Since the Multiome data contains all features, we again treat
 this as the reference dataset. Since we already examined the mosaic data
 topology, we set <code>plot = FALSE</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stab_indirect</span> <span class="op">=</span> <span class="fu"><a href="../reference/StabMap.html">stabMap</a></span><span class="op">(</span><span class="va">assay_list_indirect</span>,</span>
 <span>                        reference_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Multiome"</span><span class="op">)</span>,</span>
 <span>                        plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -438,10 +444,10 @@ topology, we set <code>plot = FALSE</code>.</p>
 <pre><code><span><span class="co">## generating embedding for path with reference "Multiome": "Multiome"</span></span></code></pre>
 <pre><code><span><span class="co">## generating embedding for path with reference "Multiome": "RNA" -&gt; "Multiome"</span></span></code></pre>
 <pre><code><span><span class="co">## generating embedding for path with reference "Multiome": "ATAC" -&gt; "Multiome"</span></span></code></pre>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">stab_indirect</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 10032    50</span></span></code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stab_indirect</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##                  Multiome_PC1 Multiome_PC2 Multiome_PC3 Multiome_PC4</span></span>
 <span><span class="co">## AAACAGCCAATCCCTT     6.859810    -1.540596    -1.843308  -0.16435493</span></span>
@@ -457,11 +463,11 @@ topology, we set <code>plot = FALSE</code>.</p>
 <span><span class="co">## AAACCAACAGGATGGC   -1.8859162</span></span></code></pre>
 <p>We can reduce the dimension further using non-linear approaches such
 as UMAP.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stab_indirect_umap</span> <span class="op">=</span> <span class="fu">calculateUMAP</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">stab_indirect</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">stab_indirect_umap</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 10032     2</span></span></code></pre>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">stab_indirect_umap</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">dataTypeIndirect</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">stab_indirect</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="stabMap_PBMC_Multiome_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
@@ -469,14 +475,14 @@ as UMAP.</p>
 well-mixed.</p>
 <p>Colouring the cells by their original cell type, we can also see that
 the mosaic data integration is meaningful.</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cellType</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">mae</span><span class="op">$</span><span class="va">celltype</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mae</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">stab_indirect_umap</span>, pch <span class="op">=</span> <span class="fl">16</span>, cex <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cellType</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">stab_indirect</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="stabMap_PBMC_Multiome_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <details><summary><strong>Session Info</strong>
-</summary><div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.2.1 (2022-06-23)</span></span>
 <span><span class="co">## Platform: x86_64-apple-darwin17.0 (64-bit)</span></span>
@@ -494,17 +500,18 @@ the mosaic data integration is meaningful.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] abind_1.4-5                 BiocNeighbors_1.14.0       </span></span>
-<span><span class="co">##  [3] scater_1.24.0               ggplot2_3.3.6              </span></span>
-<span><span class="co">##  [5] UpSetR_1.4.0                scran_1.24.0               </span></span>
-<span><span class="co">##  [7] scuttle_1.6.2               SingleCellExperiment_1.18.0</span></span>
-<span><span class="co">##  [9] SingleCellMultiModal_1.8.0  MultiAssayExperiment_1.22.0</span></span>
-<span><span class="co">## [11] SummarizedExperiment_1.26.1 Biobase_2.56.0             </span></span>
-<span><span class="co">## [13] GenomicRanges_1.48.0        GenomeInfoDb_1.32.2        </span></span>
-<span><span class="co">## [15] IRanges_2.30.0              S4Vectors_0.34.0           </span></span>
-<span><span class="co">## [17] BiocGenerics_0.42.0         MatrixGenerics_1.8.1       </span></span>
-<span><span class="co">## [19] matrixStats_0.62.0          StabMap_0.1.6              </span></span>
-<span><span class="co">## [21] igraph_1.3.4                BiocStyle_2.24.0           </span></span>
+<span><span class="co">##  [1] Matrix_1.5-1                slam_0.1-50                </span></span>
+<span><span class="co">##  [3] BiocNeighbors_1.14.0        scater_1.24.0              </span></span>
+<span><span class="co">##  [5] ggplot2_3.3.6               UpSetR_1.4.0               </span></span>
+<span><span class="co">##  [7] scran_1.24.0                scuttle_1.6.2              </span></span>
+<span><span class="co">##  [9] SingleCellExperiment_1.18.0 SingleCellMultiModal_1.8.0 </span></span>
+<span><span class="co">## [11] MultiAssayExperiment_1.22.0 SummarizedExperiment_1.26.1</span></span>
+<span><span class="co">## [13] Biobase_2.56.0              GenomicRanges_1.48.0       </span></span>
+<span><span class="co">## [15] GenomeInfoDb_1.32.2         IRanges_2.30.0             </span></span>
+<span><span class="co">## [17] S4Vectors_0.34.0            BiocGenerics_0.42.0        </span></span>
+<span><span class="co">## [19] MatrixGenerics_1.8.1        matrixStats_0.62.0         </span></span>
+<span><span class="co">## [21] StabMap_0.1.7               igraph_1.3.4               </span></span>
+<span><span class="co">## [23] BiocStyle_2.24.0           </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##   [1] AnnotationHub_3.4.0           BiocFileCache_2.4.0          </span></span>
@@ -526,38 +533,38 @@ the mosaic data integration is meaningful.</p>
 <span><span class="co">##  [33] XVector_0.36.0                DelayedArray_0.22.0          </span></span>
 <span><span class="co">##  [35] BiocSingular_1.12.0           DropletUtils_1.16.0          </span></span>
 <span><span class="co">##  [37] Rhdf5lib_1.18.2               HDF5Array_1.24.2             </span></span>
-<span><span class="co">##  [39] scales_1.2.0                  DBI_1.1.3                    </span></span>
-<span><span class="co">##  [41] edgeR_3.38.4                  Rcpp_1.0.9                   </span></span>
-<span><span class="co">##  [43] viridisLite_0.4.0             xtable_1.8-4                 </span></span>
-<span><span class="co">##  [45] dqrng_0.3.0                   bit_4.0.4                    </span></span>
-<span><span class="co">##  [47] rsvd_1.0.5                    metapod_1.4.0                </span></span>
-<span><span class="co">##  [49] httr_1.4.3                    ellipsis_0.3.2               </span></span>
-<span><span class="co">##  [51] pkgconfig_2.0.3               R.methodsS3_1.8.2            </span></span>
-<span><span class="co">##  [53] farver_2.1.1                  uwot_0.1.11                  </span></span>
-<span><span class="co">##  [55] sass_0.4.2                    dbplyr_2.2.1                 </span></span>
-<span><span class="co">##  [57] locfit_1.5-9.6                utf8_1.2.2                   </span></span>
-<span><span class="co">##  [59] tidyselect_1.1.2              labeling_0.4.2               </span></span>
-<span><span class="co">##  [61] rlang_1.0.4                   later_1.3.0                  </span></span>
-<span><span class="co">##  [63] AnnotationDbi_1.58.0          munsell_0.5.0                </span></span>
-<span><span class="co">##  [65] BiocVersion_3.15.2            tools_4.2.1                  </span></span>
-<span><span class="co">##  [67] cachem_1.0.6                  cli_3.3.0                    </span></span>
-<span><span class="co">##  [69] generics_0.1.3                RSQLite_2.2.15               </span></span>
-<span><span class="co">##  [71] ExperimentHub_2.4.0           evaluate_0.15                </span></span>
-<span><span class="co">##  [73] stringr_1.4.0                 fastmap_1.1.0                </span></span>
-<span><span class="co">##  [75] yaml_2.3.5                    ragg_1.2.2                   </span></span>
-<span><span class="co">##  [77] knitr_1.39                    bit64_4.0.5                  </span></span>
-<span><span class="co">##  [79] fs_1.5.2                      purrr_0.3.4                  </span></span>
-<span><span class="co">##  [81] KEGGREST_1.36.3               sparseMatrixStats_1.8.0      </span></span>
-<span><span class="co">##  [83] mime_0.12                     R.oo_1.25.0                  </span></span>
-<span><span class="co">##  [85] compiler_4.2.1                rstudioapi_0.13              </span></span>
-<span><span class="co">##  [87] beeswarm_0.4.0                filelock_1.0.2               </span></span>
-<span><span class="co">##  [89] curl_4.3.2                    png_0.1-7                    </span></span>
-<span><span class="co">##  [91] interactiveDisplayBase_1.34.0 tibble_3.1.8                 </span></span>
-<span><span class="co">##  [93] statmod_1.4.36                bslib_0.4.0                  </span></span>
-<span><span class="co">##  [95] stringi_1.7.8                 highr_0.9                    </span></span>
-<span><span class="co">##  [97] RSpectra_0.16-1               desc_1.4.1                   </span></span>
-<span><span class="co">##  [99] lattice_0.20-45               bluster_1.6.0                </span></span>
-<span><span class="co">## [101] Matrix_1.4-1                  vctrs_0.4.1                  </span></span>
+<span><span class="co">##  [39] abind_1.4-5                   scales_1.2.0                 </span></span>
+<span><span class="co">##  [41] DBI_1.1.3                     edgeR_3.38.4                 </span></span>
+<span><span class="co">##  [43] Rcpp_1.0.9                    viridisLite_0.4.0            </span></span>
+<span><span class="co">##  [45] xtable_1.8-4                  dqrng_0.3.0                  </span></span>
+<span><span class="co">##  [47] bit_4.0.4                     rsvd_1.0.5                   </span></span>
+<span><span class="co">##  [49] metapod_1.4.0                 httr_1.4.3                   </span></span>
+<span><span class="co">##  [51] ellipsis_0.3.2                pkgconfig_2.0.3              </span></span>
+<span><span class="co">##  [53] R.methodsS3_1.8.2             farver_2.1.1                 </span></span>
+<span><span class="co">##  [55] uwot_0.1.11                   sass_0.4.2                   </span></span>
+<span><span class="co">##  [57] dbplyr_2.2.1                  locfit_1.5-9.6               </span></span>
+<span><span class="co">##  [59] utf8_1.2.2                    tidyselect_1.1.2             </span></span>
+<span><span class="co">##  [61] labeling_0.4.2                rlang_1.0.4                  </span></span>
+<span><span class="co">##  [63] later_1.3.0                   AnnotationDbi_1.58.0         </span></span>
+<span><span class="co">##  [65] munsell_0.5.0                 BiocVersion_3.15.2           </span></span>
+<span><span class="co">##  [67] tools_4.2.1                   cachem_1.0.6                 </span></span>
+<span><span class="co">##  [69] cli_3.3.0                     generics_0.1.3               </span></span>
+<span><span class="co">##  [71] RSQLite_2.2.15                ExperimentHub_2.4.0          </span></span>
+<span><span class="co">##  [73] evaluate_0.15                 stringr_1.4.0                </span></span>
+<span><span class="co">##  [75] fastmap_1.1.0                 yaml_2.3.5                   </span></span>
+<span><span class="co">##  [77] ragg_1.2.2                    knitr_1.39                   </span></span>
+<span><span class="co">##  [79] bit64_4.0.5                   fs_1.5.2                     </span></span>
+<span><span class="co">##  [81] purrr_0.3.4                   KEGGREST_1.36.3              </span></span>
+<span><span class="co">##  [83] sparseMatrixStats_1.8.0       mime_0.12                    </span></span>
+<span><span class="co">##  [85] R.oo_1.25.0                   compiler_4.2.1               </span></span>
+<span><span class="co">##  [87] rstudioapi_0.13               beeswarm_0.4.0               </span></span>
+<span><span class="co">##  [89] filelock_1.0.2                curl_4.3.2                   </span></span>
+<span><span class="co">##  [91] png_0.1-7                     interactiveDisplayBase_1.34.0</span></span>
+<span><span class="co">##  [93] tibble_3.1.8                  statmod_1.4.36               </span></span>
+<span><span class="co">##  [95] bslib_0.4.0                   stringi_1.7.8                </span></span>
+<span><span class="co">##  [97] highr_0.9                     RSpectra_0.16-1              </span></span>
+<span><span class="co">##  [99] desc_1.4.1                    lattice_0.20-45              </span></span>
+<span><span class="co">## [101] bluster_1.6.0                 vctrs_0.4.1                  </span></span>
 <span><span class="co">## [103] pillar_1.8.0                  lifecycle_1.0.1              </span></span>
 <span><span class="co">## [105] rhdf5filters_1.8.0            BiocManager_1.30.18          </span></span>
 <span><span class="co">## [107] jquerylib_0.1.4               RcppAnnoy_0.0.19             </span></span>
