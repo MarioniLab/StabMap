@@ -12,6 +12,10 @@
 #' character vector containing the names of the reference data matrices.
 #' @param reference_features_list List of features to consider as reference data
 #' (default is all available features).
+#' @param reference_scores_list Named list of reference scores (default NULL). If
+#' provided, matrix of cells (rows with rownames given) and dimensions (columns
+#' with colnames given) are used as the reference low-dimensional embedding to
+#' target, as opposed to performing PCA or LDA on the input reference data.
 #' @param ncomponentsReference Number of principal components for embedding
 #' reference data, given either as an integer or a named list for each
 #' reference dataset.
@@ -69,6 +73,7 @@ stabMap = function(assay_list,
                    labels_list = NULL,
                    reference_list = sapply(names(assay_list), function(x) TRUE, simplify = FALSE),
                    reference_features_list = lapply(assay_list, rownames),
+                   reference_scores_list = NULL,
                    ncomponentsReference = 50,
                    ncomponentsSubset = 50,
                    suppressMessages = TRUE,
@@ -183,6 +188,14 @@ stabMap = function(assay_list,
 
       if (projectionType %in% "PC") {
 
+        if (!is.null(reference_scores_list[[reference_dataset]])) {
+
+          message("reference scores given, using these for mosaic integration")
+          reference_scores = reference_scores_list[[reference_dataset]]
+          restrictFeatures = FALSE
+
+        } else {
+
         reference_scores_raw = sm(calculatePCA(assay_list[[reference_dataset]][reference_features_list[[reference_dataset]],],
                                                ncomponents = nPC,
                                                scale = FALSE))
@@ -194,6 +207,7 @@ stabMap = function(assay_list,
         loadings_reference = attr(reference_scores_raw, "rotation")
 
         reference_scores = as.matrix(t(assay_list[[reference_dataset]])) %*1% loadings_reference
+        }
 
         d_nPC = diag(nPC)
         colnames(d_nPC) <- paste0(reference_dataset, "_", colnames(reference_scores))
